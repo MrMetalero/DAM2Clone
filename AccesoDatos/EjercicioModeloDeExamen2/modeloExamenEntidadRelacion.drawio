@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="bWEQ12FyVyrEvyAU5NzH" name="Página-1">
-        <mxGraphModel dx="1951" dy="1724" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#999999" math="0" shadow="0">
+        <mxGraphModel dx="1895" dy="1720" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#999999" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -24,42 +24,42 @@
                         <mxPoint x="31" y="-30" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="136" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="2" target="4">
+                <mxCell id="136" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" parent="1" source="2" target="4" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="137" value="0...3" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="136">
+                <mxCell id="137" value="0...3" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="136" vertex="1" connectable="0">
                     <mxGeometry x="-0.902" y="-1" relative="1" as="geometry">
                         <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="138" value="0...n" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="136">
+                <mxCell id="138" value="0...n" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="136" vertex="1" connectable="0">
                     <mxGeometry x="0.9017" relative="1" as="geometry">
                         <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="146" value="GANADORES ETAPA" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];rotation=40;" vertex="1" connectable="0" parent="136">
+                <mxCell id="146" value="GANADORES ETAPA" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];rotation=40;" parent="136" vertex="1" connectable="0">
                     <mxGeometry x="0.161" y="1" relative="1" as="geometry">
                         <mxPoint y="-16" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="142" style="edgeStyle=none;html=1;exitX=1;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="2" target="3">
+                <mxCell id="142" style="edgeStyle=none;html=1;exitX=1;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" parent="1" source="2" target="3" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="120" y="10"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="143" value="LIDERA" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="142">
+                <mxCell id="143" value="LIDERA" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="142" vertex="1" connectable="0">
                     <mxGeometry x="-0.066" y="3" relative="1" as="geometry">
                         <mxPoint x="13" y="-20" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="144" value="1...1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="142">
+                <mxCell id="144" value="1...1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="142" vertex="1" connectable="0">
                     <mxGeometry x="-0.9148" y="-2" relative="1" as="geometry">
                         <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="145" value="0...1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="142">
+                <mxCell id="145" value="0...1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="142" vertex="1" connectable="0">
                     <mxGeometry x="0.7826" y="3" relative="1" as="geometry">
                         <mxPoint as="offset"/>
                     </mxGeometry>
@@ -202,8 +202,8 @@
                 <mxCell id="60" value="id_participante" style="ellipse;whiteSpace=wrap;html=1;fontStyle=5" parent="1" vertex="1">
                     <mxGeometry x="-540" y="230" width="100" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="62" value="&lt;br&gt;&lt;div style=&quot;text-align: left;&quot;&gt;R1: Mínimo un participante tiene &amp;lt; 18&amp;nbsp;&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;R2: Todo el que lidera un equipo forma parte del mismo&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;Dorsal no se ha hecho unique por si se cambia el dorsal de un ciclista.&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
-                    <mxGeometry x="-715" y="755" width="400" height="100" as="geometry"/>
+                <mxCell id="62" value="&lt;br&gt;&lt;div style=&quot;text-align: left;&quot;&gt;R1: Mínimo un participante tiene &amp;lt; 18&amp;nbsp;&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;R2: Todo el que lidera un equipo forma parte del mismo&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;R3: Si registro los ganadores de etapa, debo registrar&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;mínimo 3 y como máximo 3&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;Dorsal no se ha hecho unique por si se cambia el dorsal de un ciclista.&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-715" y="740" width="400" height="130" as="geometry"/>
                 </mxCell>
                 <mxCell id="63" value="tiempo" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="-320" y="300" width="100" height="40" as="geometry"/>
@@ -394,7 +394,7 @@
                 <mxCell id="130" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
                     <mxGeometry x="-325" y="910" width="10" height="10" as="geometry"/>
                 </mxCell>
-                <mxCell id="141" value="" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.59;entryY=1.118;entryDx=0;entryDy=0;endArrow=none;endFill=0;entryPerimeter=0;" edge="1" parent="1" source="63" target="73">
+                <mxCell id="141" value="" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.59;entryY=1.118;entryDx=0;entryDy=0;endArrow=none;endFill=0;entryPerimeter=0;" parent="1" source="63" target="73" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="-220.00000000000273" y="320.0000000000002" as="sourcePoint"/>
                         <mxPoint x="-35.02288229551755" y="254.98755246260475" as="targetPoint"/>
