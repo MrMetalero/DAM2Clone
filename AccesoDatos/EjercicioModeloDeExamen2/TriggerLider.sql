@@ -18,7 +18,8 @@
 
     BUP
     El momento que intento actualizar el equipo de un participante que en la tabla equipo es LIDER
-    No debo dejar que se haga  el cambio
+    Debo comprobar si existe en equipo un lider con la id del participante que estamos intentando cambiar.
+    Si lo hay, no se deja cambiar de equipo.
 
 
     AUP DD
@@ -34,27 +35,32 @@
 
 
 
-CREATE OR REPLACE FUNCTION herencia_disjunta_entre_mountain_y_etapas()
+CREATE OR REPLACE FUNCTION comprobar_lider()
 RETURNS TRIGGER
 LANGUAGE 'plpgsql'
 COST 100
 VOLATILE NOT LEAKPROOF
 AS $body$
-DECLARE
-
-
 BEGIN
+    -- Comprobar si el participante que intenta cambiar de equipo es líder de un equipo
+    IF EXISTS (
+        SELECT 1 
+        FROM equipos 
+        WHERE equipos.lider = OLD.id_participante
+    ) THEN
+        -- Si es líder, lanzar una excepción para evitar el cambio
+        RAISE EXCEPTION 'NO PUEDES CAMBIAR EL EQUIPO DE ESTE PARTICIPANTE PORQUE ES EL LÍDER DE SU EQUIPO';
+    END IF;
 
-
+    -- Devolver la nueva fila si no hay problemas
+    RETURN NEW;
 END;
 $body$;
 
-
-
-CREATE OR REPLACE TRIGGER tg_herencia_disjunta_entre_mountain_y_etapas
-    BEFORE INSERT
-    ON public.mountain_etapas
+CREATE OR REPLACE TRIGGER tg_comprobar_lider
+    BEFORE UPDATE
+    ON public.participantes
     FOR EACH ROW
-    EXECUTE FUNCTION public.herencia_disjunta_entre_mountain_y_etapas();
+    EXECUTE FUNCTION comprobar_lider();
 
 

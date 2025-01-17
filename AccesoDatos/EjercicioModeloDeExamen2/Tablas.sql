@@ -1,6 +1,5 @@
--- Active: 1727983525436@@127.0.0.1@5432@modelo2examen
+-- Active: 1726053967925@@127.0.0.1@5432@modelo2examen
 CREATE DATABASE modelo2Examen
-
 
 
 CREATE TABLE equipos (
@@ -9,9 +8,7 @@ CREATE TABLE equipos (
     marca VARCHAR(25) NOT NULL,
     nacionalidad VARCHAR(50) NOT NULL,
     presupuesto DOUBLE PRECISION NOT NULL,
-    lider VARCHAR(9) NOT NULL,
-    CONSTRAINT fk_lider_equipo FOREIGN KEY (lider) REFERENCES participantes(id_participante)
-
+    lider VARCHAR(9) NOT NULL
 );
 
 CREATE TABLE participantes (
@@ -20,10 +17,22 @@ CREATE TABLE participantes (
     apellidos VARCHAR(25) NOT NULL,
     dorsal VARCHAR(4) NOT NULL,
     nombre VARCHAR(25) NOT NULL,
-    fecha_nacimiento DATE NOT NULL,
-    CONSTRAINT fk_pertenece_id_equipo FOREIGN KEY (pertenece_a_equipo) REFERENCES equipos(id_equipo)
+    fecha_nacimiento DATE NOT NULL
 );
 
+ALTER TABLE equipos 
+ADD CONSTRAINT fk_lider_equipo FOREIGN KEY (lider)
+REFERENCES participantes(id_participante)
+DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE participantes 
+ADD CONSTRAINT fk_pertenece_id_equipo FOREIGN KEY (pertenece_a_equipo)
+REFERENCES equipos(id_equipo)
+DEFERRABLE INITIALLY DEFERRED;
+
+
+
+--Otras Tablas--
 
 CREATE TABLE etapas (
     numero_etapa VARCHAR(5) PRIMARY KEY,
