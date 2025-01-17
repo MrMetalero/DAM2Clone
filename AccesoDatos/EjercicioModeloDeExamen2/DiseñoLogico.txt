@@ -11,13 +11,15 @@ Caj:  pertenece_a_equipo → equipo(id_equipo)
 
 
 
-equipos(id_equipo:string(9), nombre_equipo:string(25), marca:string(25), nacionalidad:string(50), presupuesto:doubleprecision(10) ){
+equipos(id_equipo:string(9), nombre_equipo:string(25), marca:string(25), nacionalidad:string(50), presupuesto:doubleprecision(10), lider:varchar(9) ){
 CP: id_equipo
-VNN:  nombre_equipo
+VNN: nombre_equipo
 VNN: marca
 VNN: nacionalidad
 VNN: presupuesto
+VNN: lider
 
+Caj: lider -> participantes(id_participante)
 }
 
 

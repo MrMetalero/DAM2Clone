@@ -8,7 +8,10 @@ CREATE TABLE equipos (
     nombre_equipo VARCHAR(25) NOT NULL,
     marca VARCHAR(25) NOT NULL,
     nacionalidad VARCHAR(50) NOT NULL,
-    presupuesto DOUBLE PRECISION NOT NULL
+    presupuesto DOUBLE PRECISION NOT NULL,
+    lider VARCHAR(9) NOT NULL,
+    CONSTRAINT fk_lider_equipo FOREIGN KEY (lider) REFERENCES participantes(id_participante)
+
 );
 
 CREATE TABLE participantes (
