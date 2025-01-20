@@ -2,11 +2,64 @@
   --content-padding: 10px;
 }
 header {
-  display: block;
+  display: flex;
+  justify-content: space-between;
   height: 60px;
   padding: var(--content-padding);
   box-shadow: 0px 5px 25px var(--shadow-color);
+  max-width: 100%;
 }
+.brand-name {
+  display: flex;
+  align-items: center; /* Center the logo vertically */
+}
+
+.brand-logo {
+  width: 100px; /* Adjust logo size */
+  height: auto;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.top-end{
+  align-self: flex-center;
+  justify-content: end;
+}
+
 .content {
   padding: var(--content-padding);
 }
+
+
+input[type="text"] {
+  
+  border: solid 1px var(--primary-color);
+  padding: 10px;
+  border-radius: 8px;
+  margin-right: 4px;
+  display: inline-block;
+  width: 30%;
+}
+
+button {
+  padding: 10px;
+  border: solid 1px var(--primary-color);
+  background: var(--primary-color);
+  color: white;
+  border-radius: 8px;
+  margin-left: 10px;
+}
+
+

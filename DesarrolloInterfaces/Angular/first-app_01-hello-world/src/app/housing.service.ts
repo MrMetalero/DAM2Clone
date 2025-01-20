@@ -125,6 +125,12 @@ export class HousingService {
       `Homes application received: firstName: ${firstName}, lastName: ${lastName}, email: ${email}.`,
     );
   }
+
+  submitNewHouse(name:string,city:string, state: string,photo:string,availableUnits:Number){
+
+  }
+
+
 }
 
 
