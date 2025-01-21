@@ -1,0 +1,22 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "main": "1.os.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrMetalero/nodeJsProcesosTest.git"
+  },
+  "author": "Mr_Metalero",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MrMetalero/nodeJsProcesosTest/issues"
+  },
+  "homepage": "https://github.com/MrMetalero/nodeJsProcesosTest#readme",
+  "description": "Este es un proyecto de node por defecto para test de clase",
+  "dependencies": {
+    "picocolors": "^1.1.1"
+  }
+}
