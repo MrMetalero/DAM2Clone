@@ -6,6 +6,7 @@ import { HousingLocation } from './housinglocation';
 })
 export class HousingService {
   readonly baseUrl = 'https://angular.dev/assets/images/tutorials/common';
+  numberOfLocations:number | undefined;
 
   protected housingLocationList: HousingLocation[] = [
     {
@@ -111,6 +112,10 @@ export class HousingService {
   ];
   constructor() { }
 
+  updateLocationsLength(){
+    this.numberOfLocations = this.housingLocationList.length-1;
+  }
+ 
 
   getAllHousingLocations(): HousingLocation[] {
     return this.housingLocationList;
@@ -126,8 +131,10 @@ export class HousingService {
     );
   }
 
-  submitNewHouse(name:string,city:string, state: string,photo:string,availableUnits:Number){
-
+  submitNewHouse(name:string,city:string, state: string,photo:string,availableUnits:number, wifi:boolean, laundry:boolean){
+    var newHousingLocation:HousingLocation = {id:this.numberOfLocations!,name,city,state,photo,availableUnits,wifi,laundry};
+    this.housingLocationList.push(newHousingLocation as HousingLocation);
+    this.updateLocationsLength();
   }
 
 

@@ -1,20 +1,26 @@
-
-<form action="">
-
-  <label for="housingName">Housing Name</label>
-  <input id="housingName" type="text">
-
-  <label for="housingAddress">Housing Address</label>
-  <input id="housingAddress" type="text" formControlName="housingAddress">
+<form [formGroup]="newHouseForm" (ngSubmit)="submitNewHouse()">
 
   <label for="housingName">Housing Name</label>
-  <input id="housingName" type="text" formControlName="housingName">
+  <input id="housingName" type="text" formControlName="housingName"> <br> <br>
+
+  <label for="housingCity">Housing City</label>
+  <input id="housingCity" type="text" formControlName="housingCity"> <br><br>
+
+  <label for="housingState">Housing State</label>
+  <input id="housingState" type="text" formControlName="housingState"> <br><br>
+
+  <label for="housingPhoto">Housing Photo</label>
+  <input id="housingPhoto" type="file" formControlName="housingPhoto"> <br><br>
+
+  <label for="housingNumber">Housing Number</label>
+  <input id="housingNumber" type="number" formControlName="housingNumber"> <br><br>
 
   <label for="hasWifi">Has Wifi</label>
-  <input id="hasWifi" type="checkbox" formControlName="hasWifi">
+  <input id="hasWifi" type="checkbox" formControlName="hasWifi"> <br><br>
 
   <label for="hasLaundry">Has Laundry</label>
-  <input id="hasLaundry" type="checkbox" formControlName="hasLaundry">
+  <input id="hasLaundry" type="checkbox" formControlName="hasLaundry"> <br><br>
+
+  <button type="submit" class="primary">Apply now</button> 
 
 </form>
-

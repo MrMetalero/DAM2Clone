@@ -12,6 +12,7 @@ import {RouterLink, RouterModule} from '@angular/router';
           <a class="top-start" [routerLink]="['/']">
             <img class="brand-logo" src="/assets/logo.svg" alt="logo" aria-hidden="true" />
           </a>
+          <p>Daniel Mena</p>
           <button class="top-end" [routerLink]="['/addHousing']">
             Add Housing
           </button>

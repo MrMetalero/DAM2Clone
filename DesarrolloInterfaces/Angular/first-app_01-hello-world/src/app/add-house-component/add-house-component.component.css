@@ -7,6 +7,10 @@
     justify-content: space-around;
   }
   
+  label{
+    margin-right: 10px;
+  }
+
   input[type="text"] {
     border: solid 1px var(--primary-color);
     padding: 10px;
