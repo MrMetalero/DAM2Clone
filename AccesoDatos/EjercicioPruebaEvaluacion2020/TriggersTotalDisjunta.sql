@@ -112,7 +112,6 @@ DECLARE
 BEGIN
     IF EXISTS (SELECT * FROM formulas WHERE fk_nombre_producto = NEW.nombre_producto) OR EXISTS (SELECT * FROM componentes WHERE fk_nombre_producto = NEW.nombre_producto)
     THEN 
-    
         RETURN NEW;
     ELSE
         RAISE EXCEPTION 'No se puede insertar este registro porque se necesita que exista en componentes o en formulas ';

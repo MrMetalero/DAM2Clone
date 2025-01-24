@@ -11,7 +11,7 @@ DECLARE
 
 
 BEGIN
-    IF EXISTS (SELECT * FROM componentes_contienen WHERE fk_nombre_componente = NEW.fk_nombre_producto)
+    IF EXISTS (SELECT 1 FROM componentes_contienen WHERE fk_nombre_componente = NEW.fk_nombre_producto)
     THEN 
         RETURN NEW;
     ELSE
@@ -24,9 +24,9 @@ $body$;
 
 
 
-CREATE OR REPLACE TRIGGER tg_fn_componente_tiene_pieza
-    BEFORE INSERT OR UPDATE
-    ON public.productos
+CREATE CONSTRAINT TRIGGER tg_fn_componente_tiene_pieza
+    AFTER INSERT 
+    ON public.componentes
     DEFERRABLE INITIALLY DEFERRED
     FOR EACH ROW
     EXECUTE FUNCTION public.fn_componente_tiene_pieza();
