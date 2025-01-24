@@ -1,3 +1,4 @@
+-- Active: 1726053967925@@127.0.0.1@5432@compoformula
 
 
 
@@ -14,7 +15,8 @@
 -- RI5: Si se inserta un registro en componentes, debe haber al menos 1 registro con su id 
 --      en componentes_contienen
 
-
+-- RI6: Si se inserta un registro en piezas, debe haber al menos 1 registro con su id 
+--      en componentes_contienen 
 /*
 
 
@@ -114,7 +116,6 @@ BEGIN
         RETURN NEW;
     ELSE
         RAISE EXCEPTION 'No se puede insertar este registro porque se necesita que exista en componentes o en formulas ';
-        RETURN NULL;
     END IF;
 
 END;
@@ -122,9 +123,9 @@ $body$;
 
 
 
-CREATE OR REPLACE TRIGGER tg_total_entre_componentes_funciones
-    BEFORE INSERT
-    ON public.productos
+CREATE CONSTRAINT TRIGGER tg_total_entre_componentes_funciones
+    AFTER INSERT
+    ON productos
     DEFERRABLE INITIALLY DEFERRED
     FOR EACH ROW
     EXECUTE FUNCTION public.fn_total_entre_componentes_funciones();

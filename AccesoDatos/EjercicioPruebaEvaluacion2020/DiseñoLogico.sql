@@ -45,5 +45,8 @@ RI4: Al insertar un registro en la tabla Productos, se debe de insertar un compo
 RI5: Si se inserta un registro en componentes, debe haber al menos 1 registro con su id 
      en componentes_contienen *
 
+RI6: Si se inserta un registro en piezas, debe haber al menos 1 registro con su id 
+     en componentes_contienen 
+
 
 
