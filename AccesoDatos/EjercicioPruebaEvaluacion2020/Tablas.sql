@@ -1,4 +1,4 @@
--- Active: 1727983525436@@127.0.0.1@5432@compoformula
+-- Active: 1726053967925@@127.0.0.1@5432@compoformula
 
 BEGIN TRANSACTION;
 
@@ -40,7 +40,7 @@ CREATE TABLE componentes(
 CREATE TABLE piezas(
     nombre_pieza VARCHAR,
     peso FLOAT NOT NULL,
-    CONSTRAINT pk_nombre_pieza PRIMARY KEY (nombre_pieza) 
+    CONSTRAINT pk_nombre_pieza PRIMARY KEY (nombre_pieza)
 ); 
 
 CREATE TABLE componentes_contienen(
@@ -49,6 +49,7 @@ CREATE TABLE componentes_contienen(
     CONSTRAINT pk_nombre_componenteo_nombre_pieza PRIMARY KEY (fk_nombre_componente,fk_nombre_pieza),
     CONSTRAINT fk_componente_contienen FOREIGN KEY (fk_nombre_componente) REFERENCES componentes(fk_nombre_producto)
 ); 
+
 
 
 COMMIT;
