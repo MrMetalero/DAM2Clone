@@ -193,3 +193,21 @@ COMMIT;
 Per què funciona amb una transacció i no sense?
 
 
+
+-- TRIGGER EJEMPLO LIMITE DE REGISTROS
+
+-- Trigger to enforce the maximum of 5 books borrowed by a member
+CREATE OR REPLACE FUNCTION check_borrow_limit() 
+RETURNS TRIGGER AS $$
+BEGIN
+    IF (SELECT COUNT(*) FROM Borrowing WHERE MemberID = NEW.MemberID AND ReturnDate IS NULL) >= 5 THEN
+        RAISE EXCEPTION 'A member cannot borrow more than 5 books at a time';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER borrow_limit_trigger
+BEFORE INSERT ON Borrowing
+FOR EACH ROW EXECUTE FUNCTION check_borrow_limit();
+
