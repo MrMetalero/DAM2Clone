@@ -1,0 +1,23 @@
+Exercise: Relational Databases
+Date: 15/03/2023
+Evaluation Test
+
+Task: Create a database in PostgreSQL that meets the following requirements:
+
+We need to manage a library system that keeps track of books and members. Each book has a title, an author, a publication year, and a unique ISBN. Each member has a name, 
+a contact number, and a membership date.
+A book can be borrowed by a member, and we need to track the borrowing date and the return date. A member can borrow multiple books, 
+but a book can only be borrowed by one member at a time.
+The library can have books that are not currently borrowed, and members can exist without borrowing any books.
+The library should not allow a member to borrow more than 5 books at a time.
+The ISBN of each book must be unique.
+Requirements:
+
+Create a complete E-R diagram including all necessary constraints, including those that cannot be captured in the E-R model. (2 pts)
+Create a physical design that accurately reflects the requirements. (7 pts)
+Populate the tables with a few records, ensuring that the design enforces all constraints. (1 pt)
+
+
+
+
+
