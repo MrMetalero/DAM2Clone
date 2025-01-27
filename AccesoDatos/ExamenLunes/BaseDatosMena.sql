@@ -1,9 +1,14 @@
+
 -- Active: 1726053967925@@127.0.0.1@5432@ligamena
 
-
+--RI0: si existe un registro en la tabla liga con la id de un pais, ese pais en la tabla pais no se puede eliminar
+--RI1: Cuando se borre un registro de la tabla Equipo, se deben almacear sus datos en la tabla equiposborrados
+--R2: m2 no puede ser inferior a 1000
+--R3:Si se elimina una liga deben eliminarse también todos sus equipos
 
 
 --m2 tiene un check de >=1000.
+
 CREATE TABLE paises(
     nombre varchar PRIMARY KEY,
     m2 integer,
@@ -56,10 +61,75 @@ CREATE TABLE equiposborrados(
     anyofundacion date
 );
 
---RI0: si existe un registro en la tabla liga con la id de un pais, ese pais en la tabla pais no se puede eliminar
+
+
+
+
+CREATE OR REPLACE FUNCTION calcular_numequipos()
+RETURNS TRIGGER
+LANGUAGE 'plpgsql'
+COST 100
+VOLATILE NOT LEAKPROOF
+AS $body$
+DECLARE
+
+BEGIN
+    UPDATE ligas SET numequipos = (SELECT COUNT(*) FROM equipos WHERE equipos.fk_nivel_liga = ligas.nivel AND equipos.fk_nombre_pais_liga = ligas.fk_nombre_pais);
+    RAISE NOTICE 'RECALCULADO numequipos';
+    RETURN NEW;
+    
+    
+
+END;
+$body$;
+
+
+
+CREATE OR REPLACE TRIGGER tg_calcular_numequipos
+    AFTER INSERT OR UPDATE OR DELETE
+    ON public.equipos
+    FOR EACH ROW
+    EXECUTE FUNCTION public.calcular_numequipos();
+
+
+
+
+
+
+
 --RI1: Cuando se borre un registro de la tabla Equipo, se deben almacear sus datos en la tabla equiposborrados
 
+CREATE OR REPLACE FUNCTION historico_equipos()
+RETURNS TRIGGER
+LANGUAGE 'plpgsql'
+COST 100
+VOLATILE NOT LEAKPROOF
+AS $body$
+DECLARE
 
+BEGIN
+    INSERT INTO equiposborrados ("fechaborrado","nombre","localidad","anyofundacion") 
+    VALUES
+    (CURRENT_DATE,OLD.nombre,OLD.localidad,OLD.anyofundacion);
+    RETURN NEW;
+END;
+$body$;
+
+
+
+CREATE OR REPLACE TRIGGER tg_historico_equipos
+    AFTER DELETE
+    ON equipos
+    FOR EACH ROW
+    EXECUTE FUNCTION public.historico_equipos();
+
+
+
+
+COMMIT;
+
+
+ROLLBACK;
 
 
 
