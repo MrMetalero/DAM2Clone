@@ -20,7 +20,17 @@ UPDATE employees SET sales_count = sales_count + 1 WHERE id =
 DELETE FROM tasks WHERE status = 'DONE' RETURNING *;
 
 --Alter Syntax
+ALTER TABLE table_name
+MODIFY COLUMN column_name datatype; 
 
+ALTER TABLE table_name
+DROP COLUMN column_name; 
+
+ALTER TABLE Customers
+ADD Email varchar(255);
+
+ALTER TABLE table_name
+RENAME COLUMN old_name to new_name; 
 
 -- TOTAL TRIGGER EJEMPLO
 CREATE OR REPLACE FUNCTION herencia_total_entre_mountain_y_etapas()
@@ -210,4 +220,14 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER borrow_limit_trigger
 BEFORE INSERT ON Borrowing
 FOR EACH ROW EXECUTE FUNCTION check_borrow_limit();
+
+
+--USO DE VARIABLES
+
+CREATE FUNCTION holaMundo() RETURNS VARCHAR(30)
+BEGIN
+DECLARE salida VARCHAR(30) DEFAULT 'Hola mundo';
+SET salida = ‘Hola mundo con variables’;
+RETURN salida;
+END
 
