@@ -1,0 +1,11 @@
+
+<h1>Login into Metalsoft</h1>
+
+<form (ngSubmit)="onSubmit()">
+
+    <input type="text" [(ngModel)]="loginAttemptUsername" placeholder="loginAttemptUsername" required>
+    <input type="password" [(ngModel)]="loginAttemptPassword" placeholder="Password">
+    <input type="submit" name="submitLogin" id="btnLoginSubmit">
+
+</form>
+
