@@ -8,7 +8,7 @@ public class Main {
         mongoDataBase.mongoConnection();  // Establish connection to MongoDB
         
         // Get the current date as the collection identifier
-        String currentDate = "2025-02-3";
+        String currentDate = "2025-02-5";
 
         // Create the collection and insert dummy data for today
         mongoDataBase.insertDummyData(500000, currentDate);  // Insert 10 contracts for today
