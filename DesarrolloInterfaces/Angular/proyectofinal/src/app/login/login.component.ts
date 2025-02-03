@@ -2,7 +2,7 @@ import { DataService } from './../data.service';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Data } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,14 +12,22 @@ import { Data } from '@angular/router';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  loginAttemptUsername?: String = '';
-  loginAttemptPassword?: String = '';
-  constructor(private dataService: DataService){ //passing the dataservice as parameter here injects it
+  loginAttemptUsername?: string = '';
+  loginAttemptPassword?: string = '';
+  errorMessage: string = '';
+
+  constructor(private dataService: DataService,private router: Router){ //passing the dataservice as parameter here injects it
 
   }
 
   onSubmit(){
-    this.dataService.login(this.loginAttemptUsername,this.loginAttemptPassword)
+    if (this.dataService.login(this.loginAttemptUsername, this.loginAttemptPassword)) {
+      console.log('Login successful for:', this.loginAttemptUsername);
+      this.router.navigate(['/dashboard']); // Navigate on success
+    } else {
+      this.errorMessage = 'Invalid username or password';
+      console.error('Login failed for:', this.loginAttemptUsername);
+    }
   }
 
 

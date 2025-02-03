@@ -5,13 +5,18 @@ import { Injectable } from '@angular/core';
 })
 export class DataService {
 
-  private usersLoginAccounts = new Map<String, String>([
-    ['user1', 'password1'],
-    ['user2', 'password2'],
-    ['user3', 'password3'],
-    ['user4', 'password4'],
-    ['user5', 'password5'],
-    ['user6', 'password6'],
+  private usersLoginAccounts = new Map<string, string>([
+    ['user1', '1234'],
+    ['user2', '1234'],
+    ['user3', '1234'],
+    ['user4', '1234'],
+    ['user5', '1234'],
+    ['user6', '1234'],
+    ['alwaysup', '1234'],
+  ]);
+
+  private usersLoggedInTokens = new Map<string | undefined, string>([
+    [this.usersLoginAccounts.get("alwaysup"),"logintoken1"],
   ]);
 
   constructor() { 
@@ -19,8 +24,11 @@ export class DataService {
   }
   
 
-  login(username:String | undefined, password:String | undefined){
+  login(username:string | undefined, password:string | undefined){
+    // if any of these is undefined, login is false
     if (!username || !password) return false;
-    return this.usersLoginAccounts.get(username) === password;
+
+    // on match of passwords for user X
+    return this.usersLoginAccounts.get(username) === password; 
   }
 }
