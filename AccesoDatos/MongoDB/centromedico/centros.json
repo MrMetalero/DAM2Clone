@@ -1,0 +1,83 @@
+
+{
+
+"Centros":{
+    "centro1":{
+        "nombre":"Centro medico 1",
+        "medicos":{
+
+            "medico1":{
+                "nombre": "Joseju",
+                "apellido": "apellido Joseju1",
+                "pacientes":{
+
+                    "paciente1":{
+                        "nombre": "señor1",
+                        "apellido": "señorapellido1",
+                        "historial":{
+                            "12/05/2023":{
+                                "Dolencia": "Dolor de espalda"
+                            }
+                        }
+                    },
+
+                    "paciente2":{
+                        "nombre": "señor2",
+                        "apellido": "señorapellido1",
+                        "historial":{
+                            "12/05/2023":{
+                                "Dolencia": "Dolor de espalda"
+                            }
+                        }
+                    },
+
+                    "paciente3":{
+                        "nombre": "señor3",
+                        "apellido": "señorapellido1",
+                        "historial":{
+                            "12/05/2023":{
+                                "Dolencia": "Dolor de espalda"
+                            }
+                        }
+                    },
+
+                    "paciente4":{
+                        "nombre": "señor4",
+                        "apellido": "señorapellido1",
+                        "historial":{
+                            "12/05/2023":{
+                                "Dolencia": "Dolor de espalda"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+        
+    },
+
+    "centro2":{
+        "nombre":"Centro medico 2",
+        "medicos":{
+            "medico1":{
+                "nombre": "Marco",
+                "apellido": "apellido Marco"
+            }
+        }
+    },
+
+    "centro3":{
+        "nombre":"Centro medico 3",
+        "medicos":{
+            "medico1":{
+                "nombre": "Robert",
+                "apellido": "apellido Robert"
+            }
+        }
+    }
+
+}
+
+}
