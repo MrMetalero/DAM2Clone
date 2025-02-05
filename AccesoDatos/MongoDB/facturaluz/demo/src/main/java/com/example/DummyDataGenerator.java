@@ -1,49 +1,54 @@
 package com.example;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.time.YearMonth;
+import java.util.*;
 
 public class DummyDataGenerator {
+    public static List<Map<String, Object>> generateDummyData(int numberOfContracts, String date) {
+        List<Map<String, Object>> contractsList = new ArrayList<>();
 
-    public static Map<String, Map<String, Object>> generateDummyData(int numberOfContracts, String day) {
-        Map<String, Map<String, Object>> dailyContracts = new HashMap<>();
+        int daysInMonth = getDaysInMonth(date);
 
-        for (int i = 1; i <= numberOfContracts; i++) {
+        for (int i = 0; i < numberOfContracts; i++) {
             Map<String, Object> contract = new HashMap<>();
-
-            String time = generateRandomTime();
-            contract.put("hora", time);
-
-            Map<String, Object> contador = generateContadorData();
-            contract.put("contador", contador);
 
             Map<String, String> cliente = new HashMap<>();
             cliente.put("nombre", "Jose");
             cliente.put("apellido", "ApellidoJose");
             contract.put("cliente", cliente);
 
-            dailyContracts.put("contrato" + i, contract);
+            Map<String, String> contrato = new HashMap<>();
+            contrato.put("id", "CON" + (2300000 + i)); // Unique contract ID
+            contrato.put("fecha_renovacion", date);
+            contract.put("contrato", contrato);
+
+            Map<String, Map<String, Integer>> dias = new HashMap<>();
+            for (int day = 1; day <= daysInMonth; day++) {
+                dias.put(String.valueOf(day), generateHours());
+            }
+            contract.put("consumos", Collections.singletonMap("dias", dias));
+
+            contractsList.add(contract);
         }
-
-        return dailyContracts;
+        return contractsList;
     }
 
-    private static String generateRandomTime() {
+    // Super util para separar fechas y pillar sus longitudes
+    private static int getDaysInMonth(String date) {
+        String[] parts = date.split("-");
+        int year = Integer.parseInt(parts[0]);
+        int month = Integer.parseInt(parts[1]);
+        return YearMonth.of(year, month).lengthOfMonth();
+    }
+
+    // 
+    private static Map<String, Integer> generateHours() {
+        // Linked hashmap me ayuda a crear los días siempre en orden 
+        Map<String, Integer> hoursMap = new LinkedHashMap<>(); 
         Random random = new Random();
-        int hour = random.nextInt(24); 
-        int minute = random.nextInt(60); 
-
-        return String.format("%02d:%02d", hour, minute);
-    }
-
-    private static Map<String, Object> generateContadorData() {
-        Map<String, Object> contador = new HashMap<>();
-        
-        contador.put("lectura", new Random().nextInt(1000));  
-        contador.put("estado", "activo");  
-        contador.put("tipo", "digital");  
-
-        return contador;
+        for (int hour = 1; hour <= 24; hour++) {
+            hoursMap.put("hora " + hour, random.nextInt(5000)); // numero de consumo random
+        }
+        return hoursMap;
     }
 }
