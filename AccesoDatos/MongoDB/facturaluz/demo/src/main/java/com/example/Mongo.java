@@ -15,13 +15,12 @@ public class Mongo {
     private MongoClient mongoClient;
     public MongoDatabase database;
 
-    // Establish connection to MongoDB
     public void mongoConnection() {
         String connectionString = "mongodb://mati:mati@localhost:27017"; 
 
         if (mongoClient == null) {
             try {
-                mongoClient = MongoClients.create(connectionString); // Create MongoClient
+                mongoClient = MongoClients.create(connectionString); 
                 System.out.println("Connected to MongoDB!");
                 database = mongoClient.getDatabase("facturaluz");
             } catch (Exception e) {
@@ -33,12 +32,9 @@ public class Mongo {
         }
     }
 
-    // Create collection for a specific day (if it doesn't exist)
     public void createCollection(String day) {
-        // Dynamically create the collection name based on the day's date
         String collectionName = "contratos_" + day;
 
-        // Check if the collection already exists
         if (database.getCollection(collectionName) == null) {
             database.createCollection(collectionName);
             System.out.println("Collection " + collectionName + " created.");
@@ -47,14 +43,10 @@ public class Mongo {
         }
     }
 
-    // Insert dummy data into a collection for the specific day
    public void insertDummyData(int numberOfContracts, String day) {
     String collectionName = "contratos_" + day;
 
-    // Check if collection exists
-    boolean collectionExists = database.listCollectionNames()
-            .into(new ArrayList<>()) // Convert iterable to a list
-            .contains(collectionName);
+    boolean collectionExists = database.listCollectionNames().into(new ArrayList<>()).contains(collectionName);
 
     if (!collectionExists) {
         database.createCollection(collectionName);
@@ -63,35 +55,29 @@ public class Mongo {
         System.out.println("Collection " + collectionName + " already exists.");
     }
 
-    // Access the collection
     MongoCollection<Document> collection = database.getCollection(collectionName);
 
-    // Generate dummy data
     Map<String, Map<String, Object>> dailyContracts = DummyDataGenerator.generateDummyData(numberOfContracts, day);
 
-    // Measure time
     long startTime = System.nanoTime();
 
-    // Insert data
     for (Map<String, Object> contractData : dailyContracts.values()) {
         Document contract = new Document(contractData);
         collection.insertOne(contract);
     }
 
     long endTime = System.nanoTime();
-    long duration = (endTime - startTime) / 1_000_000; // Convert to milliseconds
+    long duration = (endTime - startTime) / 1_000_000; 
 
     System.out.println(numberOfContracts + " dummy contracts inserted into '" + collectionName + "' collection.");
     System.out.println("Insertion took: " + duration + " ms");
 }
 
-    // Helper method to get the current date in a specific format (e.g., "yyyy-MM-dd")
     public String getCurrentDate() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(new Date());
     }
 
-    // Close the MongoDB connection (if needed)
     public void closeConnection() {
         if (mongoClient != null) {
             mongoClient.close();
