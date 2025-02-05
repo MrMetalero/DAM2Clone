@@ -15,7 +15,7 @@ export class DataService {
     ['alwaysup', '1234'],
   ]);
 
-  private usersLoggedInTokens = new Map<string | undefined, string>([
+  public usersLoggedInTokens = new Map<string | undefined, string>([
     [this.usersLoginAccounts.get("alwaysup"),"logintoken1"],
   ]);
 

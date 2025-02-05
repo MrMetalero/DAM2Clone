@@ -14,6 +14,6 @@ export class DashboardComponent {
 loginToken: string | undefined;
 
 constructor(private dataService: DataService,private router: Router ){
-   
+   this.loginToken = dataService.usersLoggedInTokens.get();
 }
 }
