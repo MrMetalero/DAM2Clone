@@ -3,33 +3,44 @@ package com.example;
 import java.time.YearMonth;
 import java.util.*;
 
+import org.bson.Document;
+
 public class DummyDataGenerator {
-    public static List<Map<String, Object>> generateDummyData(int numberOfContracts, String date) {
-        List<Map<String, Object>> contractsList = new ArrayList<>();
+    public static List<Document> generateDummyData(int numberOfContracts, String date) {
+        List<Document> contractsList = new ArrayList<>();
 
         int daysInMonth = getDaysInMonth(date);
 
         for (int i = 0; i < numberOfContracts; i++) {
-            Map<String, Object> contract = new HashMap<>();
+            Document contract = new Document();
 
-            Map<String, String> cliente = new HashMap<>();
-            cliente.put("nombre", "Jose");
-            cliente.put("apellido", "ApellidoJose");
-            contract.put("cliente", cliente);
+            // Client information
+            Document cliente = new Document();
+            cliente.append("nombre", "Jose");
+            cliente.append("apellido", "ApellidoJose");
+            contract.append("cliente", cliente);
 
-            Map<String, String> contrato = new HashMap<>();
-            contrato.put("id", "CON" + (2300000 + i)); // Unique contract ID
-            contrato.put("fecha_renovacion", date);
-            contract.put("contrato", contrato);
+            // Contract information
+            Document contrato = new Document();
+            contrato.append("id", "CON" + (2300000 + i)); // Unique contract ID
+            contrato.append("fecha_renovacion", date);
+            contract.append("contrato", contrato);
 
-            Map<String, Map<String, Integer>> dias = new HashMap<>();
+            // Consumption information (dias as array of documents)
+            List<Document> dias = new ArrayList<>();
             for (int day = 1; day <= daysInMonth; day++) {
-                dias.put(String.valueOf(day), generateHours());
+                Document dayInfo = new Document();
+                dayInfo.append("hora", generateHours());
+                dias.add(dayInfo);
             }
-            contract.put("consumos", Collections.singletonMap("dias", dias));
+
+            Document consumos = new Document();
+            consumos.append("dias", dias);
+            contract.append("consumos", consumos);
 
             contractsList.add(contract);
         }
+
         return contractsList;
     }
 
@@ -41,14 +52,15 @@ public class DummyDataGenerator {
         return YearMonth.of(year, month).lengthOfMonth();
     }
 
-    // 
-    private static Map<String, Integer> generateHours() {
-        // Linked hashmap me ayuda a crear los días siempre en orden 
-        Map<String, Integer> hoursMap = new LinkedHashMap<>(); 
+    
+    private static List<Integer> generateHours() {
+        List<Integer> hoursList = new ArrayList<>();
         Random random = new Random();
         for (int hour = 1; hour <= 24; hour++) {
-            hoursMap.put("hora " + hour, random.nextInt(5000)); // numero de consumo random
+            hoursList.add(random.nextInt(5000)); // Random consumption value
         }
-        return hoursMap;
+        return hoursList;
     }
+    
+    
 }

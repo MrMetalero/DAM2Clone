@@ -11,9 +11,11 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
-loginToken: string | undefined;
+  loggedInUser: string | null = null;
 
-constructor(private dataService: DataService,private router: Router ){
-   this.loginToken = dataService.usersLoggedInTokens.get();
-}
+  constructor(private dataService: DataService,private router: Router ){
+    this.loggedInUser = this.dataService.getLoggedInUser();
+    console.log(this.loggedInUser);
+    
+  }
 }

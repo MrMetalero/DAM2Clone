@@ -1,0 +1,35 @@
+/* Mobile-first styles (for small screens) */
+.flex-container {
+    display: flex;                    /* Enable Flexbox */
+    flex-direction: column;           /* Stack items vertically by default */
+    gap: 10px;                        /* Space between items */
+    padding: 10px;                    /* Padding around the container */
+  }
+  
+  .flex-item {
+    background-color: lightblue;      /* Background for items */
+    padding: 20px;                    /* Padding inside items */
+    border: 1px solid #ccc;           /* Border around items */
+    text-align: center;               /* Center text inside items */
+  }
+  
+  /* Tablet and larger screens */
+  @media (min-width: 600px) {
+    .flex-container {
+      flex-direction: row;            /* Align items in a row on larger screens */
+      justify-content: space-between; /* Distribute space between items */
+      align-items: center;            /* Vertically align items in the center */
+    }
+  
+    .flex-item {
+      flex: 1 1 200px;                /* Make items flexible, with a minimum width of 200px */
+    }
+  }
+  
+  /* Desktop and larger screens */
+  @media (min-width: 1024px) {
+    .flex-container {
+      justify-content: space-evenly;  /* Spread items evenly with equal space */
+    }
+  }
+  

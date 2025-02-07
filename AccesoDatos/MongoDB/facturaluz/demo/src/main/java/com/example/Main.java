@@ -38,7 +38,9 @@ public class Main {
         //Nombre de la colección a insertar
         String currentDate = "2025-04";
 
-        mongoDataBase.insertDummyData(1000, currentDate);  
+        //mongoDataBase.insertDummyData(1000, currentDate);  
+
+        mongoDataBase.deleteDocument();
         mongoDataBase.closeConnection();
     }
 }

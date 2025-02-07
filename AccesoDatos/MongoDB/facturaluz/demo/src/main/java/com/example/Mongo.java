@@ -3,13 +3,15 @@ package com.example;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.UpdateOptions;
+import com.mongodb.client.model.Updates;
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 public class Mongo {
 
@@ -33,9 +35,7 @@ public class Mongo {
         }
     }
 
-
-  public void insertDummyData(int numberOfContracts, String date) {
-
+    public void insertDummyData(int numberOfContracts, String date) {
         String collectionName = "contratos_" + date.substring(5, 7) + "_" + date.substring(0, 4); // MM_YYYY format
 
         boolean collectionExists = database.listCollectionNames().into(new ArrayList<>()).contains(collectionName);
@@ -49,15 +49,12 @@ public class Mongo {
 
         MongoCollection<Document> collection = database.getCollection(collectionName);
 
-        List<Map<String, Object>> dummyContracts = DummyDataGenerator.generateDummyData(numberOfContracts, date);
+        // Generate dummy data with Documents instead of Map
+        List<Document> dummyContracts = DummyDataGenerator.generateDummyData(numberOfContracts, date);
 
         long startTime = System.nanoTime();
 
-        List<Document> documents = new ArrayList<>();
-        for (Map<String, Object> contractData : dummyContracts) {
-            documents.add(new Document(contractData));
-        }
-        collection.insertMany(documents);
+        collection.insertMany(dummyContracts);
 
         long endTime = System.nanoTime();
         long duration = (endTime - startTime) / 1000000;
@@ -66,6 +63,18 @@ public class Mongo {
         System.out.println("Insertion took: " + duration + " ms");
     }
 
+    public void deleteDocument() {
+        MongoCollection<Document> collection = database.getCollection("contratos_04_2025");
+
+        // To remove the "09" hour consumption for a specific client and date
+        collection.updateMany(
+            Filters.and(
+                Filters.eq("cliente.nombre", "Jose"), // Filtra por el nombre del cliente
+                Filters.eq("consumos.dias.1", new Document()) // Asegura que estamos trabajando con el día 1
+            ),
+            Updates.unset("consumos.dias.1.9") // Elimina la "hora 9" en el día 1
+        );
+    }
 
     public String getCurrentDate() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
