@@ -1,19 +1,2 @@
 
-nav{
-    display: inline-flex;
-    align-content: space-between;
-    background-color: rgb(228, 243, 255);
-}
 
-nav *{
-    padding: 20px;
-    
-}
-nav button{
-   height: 50px;
-   align-self: center;
-   justify-content: center;  /* Centers horizontally */
-   align-content: space-between;
-   padding: 0 20px;          /* Optional: for horizontal padding */
-
-}

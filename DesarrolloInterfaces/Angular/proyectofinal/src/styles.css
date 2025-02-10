@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+@tailwind utilities;
+
+@layer components {
+    .btn {
+      @apply bg-amber-100 text-black border-l-2 px-4 py-2 rounded-lg hover:bg-amber-300;
+    }
+  }
+
+  body{
+    background-color: rgb(236, 232, 232);
+  }
