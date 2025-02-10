@@ -1,3 +1,6 @@
+const fs = require('fs');
+
+
 const http = require('node:http')
 console.log(process.env)
 const desiredPort = process.env.PORT ?? 3000
