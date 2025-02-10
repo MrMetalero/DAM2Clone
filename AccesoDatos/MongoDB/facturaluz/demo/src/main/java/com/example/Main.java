@@ -40,7 +40,9 @@ public class Main {
 
         //mongoDataBase.insertDummyData(1000, currentDate);  
 
-        mongoDataBase.deleteDocument();
+        //mongoDataBase.deleteHourOneByName("Jose2266");
+        //mongoDataBase.deleteDocumentByName("Jose1718");
+        //mongoDataBase.insertClient("contratos_04_2025","Javi","Maceda");
         mongoDataBase.closeConnection();
     }
 }
