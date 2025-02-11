@@ -2,12 +2,29 @@
 @import "tailwindcss";
 @tailwind utilities;
 
+:root {
+  --default-font-family: 'Insignia', ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+
 @layer components {
     .btn {
       @apply bg-amber-100 text-black border-l-2 px-4 py-2 rounded-lg hover:bg-amber-300;
     }
   }
 
+  @font-face {
+    font-family: 'Insignia';
+    src: url('/assets/fonts/Insignia.woff2') format('woff2'),
+        url('/assets/fonts/Insignia.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+
+
   body{
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(37, 37, 37);
   }

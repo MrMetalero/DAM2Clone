@@ -1,16 +1,55 @@
+<h1 class="text-3xl font-bold text-center text-gray-800 mb-6 bg-amber-300 py-2">CREDENTIALS NEEDED CITIZEN</h1>
 
-<h1>LOGIN COMPONENT</h1>
+<form (ngSubmit)="onSubmit()" class="max-w-md mx-auto bg-gray-900 p-8 rounded-lg shadow-lg border border-amber-300 border-opacity-30">
+    <!-- Error Message -->
+    <p *ngIf="errorMessage" class="text-red-500 text-center font-semibold mb-4">{{ errorMessage }}</p>
+    
+    <!-- Username Field -->
+    <div class="mb-4">
+        <input 
+            type="text" 
+            [(ngModel)]="loginAttemptUsername" 
+            name="username" 
+            placeholder="Username" 
+            required 
+            class="w-full px-4 py-2 bg-gray-800 text-gray-300 rounded-lg border border-amber-300 focus:outline-none focus:border-amber-400"
+        >
+        <div *ngIf="!loginAttemptUsername" class="text-red-500 text-sm mt-1">Username is required</div>
+    </div>
+    
+    <!-- Password Field -->
+    <div class="mb-6">
+        <input 
+            type="password" 
+            [(ngModel)]="loginAttemptPassword" 
+            name="password" 
+            placeholder="Password" 
+            required 
+            class="w-full px-4 py-2 bg-gray-800 text-gray-300 rounded-lg border border-amber-300 focus:outline-none focus:border-amber-400"
+        >
+        <div *ngIf="!loginAttemptPassword" class="text-red-500 text-sm mt-1">Password is required</div>
+    </div>
+    
+    <!-- Submit Button -->
+    <input 
+        type="submit" 
+        name="submitLogin" 
+        id="btnLoginSubmit" 
+        value="Enlist Now" 
+        class="w-full bg-amber-400 text-gray-900 font-bold py-2 px-4 rounded-lg hover:bg-amber-600 transition duration-300 cursor-pointer"
+    >
+</form>
 
-
-    <form (ngSubmit)="onSubmit()">
-        <!-- IF errorMessage is null or undefined, it doesn't show up -->
-        <p *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</p>
-        
-        <input type="text" [(ngModel)]="loginAttemptUsername" name="username" placeholder="Username" required>
-        <div *ngIf="!loginAttemptUsername" style="color: red;">Username is required</div>
-      
-        <input type="password" [(ngModel)]="loginAttemptPassword" name="password" placeholder="Password" required>
-        <div *ngIf="!loginAttemptPassword" style="color: red;">Password is required</div>
-        <input type="submit" name="submitLogin" id="btnLoginSubmit">
-  </form>
-
+<!-- Patriotic Decoration -->
+<div class="mt-8 text-center bg-gray-900 p-6 rounded-lg shadow-lg border border-amber-500 border-opacity-30">
+    <h2 class="text-2xl font-bold text-amber-300 mb-4">FOR THE GLORY OF THE FEDERATION!</h2>
+    <p class="text-gray-300 italic">
+        "Service guarantees citizenship. Would you like to know more?"
+    </p>
+    <p class="text-gray-300 mt-2">
+        Join the Mobile Infantry today and defend humanity from the bugs! The only good bug is a dead bug!
+    </p>
+    <p class="text-gray-300 mt-2 font-semibold">
+        Remember: It's not just a login—it's your first step toward becoming a hero of the Federation!
+    </p>
+</div>

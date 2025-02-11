@@ -12,7 +12,17 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class DashboardComponent {
   loggedInUser: string | null = null;
+  currentSlide = 0;
+  totalSlides = 3; // Number of slides
 
+  nextSlide() {
+    this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+  }
+
+  prevSlide() {
+    this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+  }
+  
   constructor(private dataService: DataService,private router: Router ){
     this.loggedInUser = this.dataService.getLoggedInUser();
     console.log(this.loggedInUser);

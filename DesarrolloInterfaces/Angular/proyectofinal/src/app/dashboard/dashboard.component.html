@@ -1,11 +1,60 @@
-<h1>DASHBOARD COMPONENT</h1>
+<h1 class="text-3xl font-bold text-center bg-amber-300 py-2  px-4">DASHBOARD COMPONENT</h1>
 
-<p *ngIf="loggedInUser != null" >Usuario logueado: {{loggedInUser}} </p>
+<!-- Logged In User -->
+<p *ngIf="loggedInUser != null" class="text-center bg-black bg-opacity-10 py-1 text-gray-300 mb-6 px-4">
+    Usuario logueado: <span class="font-bold text-amber-500">{{ loggedInUser }}</span>
+</p>
 
-
-<div class="contenedor">
-    <div class="item">Item 1</div>
-    <div class="item">Item 2</div>
-    <div class="item">Item 3</div>
-    <div class="item">Item 4</div>
+<!-- Carousel Section -->
+<div class="relative w-full max-w-4xl mx-auto h-64 bg-gray-900 rounded-lg shadow-lg mb-8 overflow-hidden">
+  <!-- Carousel Slides -->
+  <div class="absolute inset-0 flex transition-transform duration-500 ease-in-out" 
+       [ngStyle]="{ 'transform': 'translateX(-' + (currentSlide * 100) + '%)' }">
+      <!-- Slide 1 -->
+      <div class="min-w-full flex items-center justify-center bg-cover bg-center" style="background-image: url('https://via.placeholder.com/800x400?text=For+Democracy+and+Liberty!');">
+          <h2 class="text-2xl font-bold text-amber-500 bg-gray-900 bg-opacity-70 p-4 rounded-lg">FOR DEMOCRACY AND LIBERTY!</h2>
+      </div>
+      <!-- Slide 2 -->
+      <div class="min-w-full flex items-center justify-center bg-cover bg-center" style="background-image: url('https://via.placeholder.com/800x400?text=Join+the+Fight+Today!');">
+          <h2 class="text-2xl font-bold text-amber-500 bg-gray-900 bg-opacity-70 p-4 rounded-lg">JOIN THE FIGHT TODAY!</h2>
+      </div>
+      <!-- Slide 3 -->
+      <div class="min-w-full flex items-center justify-center bg-cover bg-center" style="background-image: url('https://via.placeholder.com/800x400?text=The+Only+Good+Bug+is+a+Dead+Bug!');">
+          <h2 class="text-2xl font-bold text-amber-500 bg-gray-900 bg-opacity-70 p-4 rounded-lg">THE ONLY GOOD BUG IS A DEAD BUG!</h2>
+      </div>
   </div>
+  <!-- Carousel Controls -->
+  <button 
+      class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-900 bg-opacity-70 text-amber-500 p-2 rounded-full hover:bg-amber-500 hover:text-gray-900 transition duration-300"
+      (click)="prevSlide()"
+  >
+      &larr;
+  </button>
+  <button 
+      class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-gray-900 bg-opacity-70 text-amber-500 p-2 rounded-full hover:bg-amber-500 hover:text-gray-900 transition duration-300"
+      (click)="nextSlide()"
+  >
+      &rarr;
+  </button>
+</div>
+
+<!-- Grid of Items -->
+<div class="contenedor grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
+    <!-- Item 1: Mission Status -->
+    <div class="item bg-gray-900 p-6 rounded-lg shadow-lg border border-amber-500 border-opacity-30">
+        <h3 class="text-xl font-bold text-amber-500 mb-2">Mission Status</h3>
+        <p class="text-gray-300">Current Objective: Liberate Planet X-12</p>
+        <p class="text-gray-300">Progress: <span class="text-amber-500">75%</span></p>
+    </div>
+    
+    <!-- Item 2: Enemy Intel -->
+    <div class="item bg-gray-900 p-6 rounded-lg shadow-lg border border-amber-500 border-opacity-30">
+        <h3 class="text-xl font-bold text-amber-500 mb-2">Enemy Intel</h3>
+        <p class="text-gray-300">Bug Activity: <span class="text-red-500">High</span></p>
+        <p class="text-gray-300">Cyborg Sightings: <span class="text-amber-500">Low</span></p>
+    </div>
+    
+    <!-- Item 3: Squad Readiness -->
+    <div class="item bg-gray-900 p-6 rounded-lg shadow-lg border border-amber-500 border-opacity-30">
+        <h3 class="text-xl font-bold text-amber-500 mb-2">Squad Readiness</h3>
+        <p class="text-gray-300">Squad Members: <span class="text-amber-500">4/4
