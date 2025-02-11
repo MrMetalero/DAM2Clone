@@ -1,16 +1,31 @@
-<nav class="flex flex-col items-start p-3 md:flex-row  justify-between md:items-center w-screen bg-gray-200 md:px-5 md:py-2">
-    <div class="">
-        <h3 class="text-3xl font-bold underline text-center bg-amber-100 rounded-lg p-4 md:p-2">Navbar</h3>
-
-    </div>
+<nav class="flex flex-row items-start p-3 md:flex-row justify-evenly  md:items-center w-screen bg-black md:px-2 md:py-5 text-white ">
     
+
+    <div class="relative inline-block group ">
+        <div class="py-2  sm:py-0">
+            <button class="px-2 bg-amber-100  p-2 hover:bg-amber-300 text-black">-Menu-</button>
+        </div>
+    
+        <div class="absolute  w-40 bg-white border rounded shadow-lg hidden group-hover:block">
+            <a routerLink="/" class="block px-4 py-2 hover:bg-gray-200 text-black">Home Page</a>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-200 text-black">Opción 2</a>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-200 text-black">Opción 3</a>
+        </div>
+    </div>
+
     <div>
         <p class="text-1xl font-bold  text-center p-3 pl-0 md:p-2">Esta es la barra de navegación de la app</p>
 
     </div>
     
-    <div class="align">
+    <div class=" justify-end ">
         <button class="btn p-4 md:p-2 " routerLink="/login">Login</button>
     </div>
+
+
     
 </nav>
+<div class="p-2">
+
+</div>
+

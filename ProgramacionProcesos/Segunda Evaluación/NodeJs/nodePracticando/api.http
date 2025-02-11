@@ -1,0 +1,8 @@
+
+//EL ESPACIO ES IMPORTANTE ANTES D ELAS LLAVES
+POST http://localhost:1234/pokemon
+Content-Type: application/json
+
+{
+
+}
