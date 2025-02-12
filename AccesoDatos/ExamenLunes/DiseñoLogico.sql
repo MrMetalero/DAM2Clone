@@ -1,5 +1,4 @@
 
-
 --m2 tiene un check de >=1000.
 paises(nombre:varchar,m2:integer){
 CP: nombre

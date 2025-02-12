@@ -14,17 +14,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.time.LocalDate;
+
 public class Mongo {
 
     private MongoClient mongoClient;
     public MongoDatabase database;
 
     public void mongoConnection() {
-        String connectionString = "mongodb://mati:mati@localhost:27017"; 
+        String connectionString = "mongodb://mati:mati@localhost:27017";
 
         if (mongoClient == null) {
             try {
-                mongoClient = MongoClients.create(connectionString); 
+                mongoClient = MongoClients.create(connectionString);
                 System.out.println("Connected to MongoDB!");
                 database = mongoClient.getDatabase("facturaluz");
             } catch (Exception e) {
@@ -63,9 +64,6 @@ public class Mongo {
         System.out.println("Insertion took: " + duration + " ms");
     }
 
- 
-
-
     public String getCurrentDate() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(new Date());
@@ -78,28 +76,76 @@ public class Mongo {
         }
     }
 
-    public void deleteHourOneByName(String nameOfClient) {
-        MongoCollection<Document> collection = database.getCollection("contratos_04_2025");
+    public <T> void updateOneDocumentByFieldName(String collectionName, String nameOfClient, String fieldName, T modifiedData) {
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+
+        collection.updateOne(
+                Filters.eq("cliente.nombre", nameOfClient),
+                Updates.set(fieldName, modifiedData));
+    }
+
+    public void deleteHourOneByName(String collectionName,String nameOfClient) {
+        MongoCollection<Document> collection = database.getCollection(collectionName);
 
         collection.updateMany(
-            Filters.and(
-                Filters.eq("cliente.nombre", nameOfClient) // Filtra por el nombre del cliente
-            ),
-            Updates.unset("consumos.dias.0.hora1") // Elimina la "hora 9" en el día 1
+                Filters.and(
+                        Filters.eq("cliente.nombre", nameOfClient) // Filtra por el nombre del cliente
+                ),
+                Updates.unset("consumos.dias.0.hora1") // Elimina la "hora 9" en el día 1
         );
     }
 
-    public void deleteDocumentByName(String nameOfClient) {
-        MongoCollection<Document> collection = database.getCollection("contratos_04_2025");
+    public void deleteDocumentByName(String collectionName,String nameOfClient) {
+        MongoCollection<Document> collection = database.getCollection(collectionName);
 
         collection.deleteMany(
-            Filters.and(
-                Filters.eq("cliente.nombre", nameOfClient) // Filtra por el nombre del cliente
-            )
-        );
+                Filters.and(
+                        Filters.eq("cliente.nombre", nameOfClient) // Filtra por el nombre del cliente
+                ));
     }
 
-    public void insertClient(String collectionName, String nombre, String apellido){
+    public void printDocumentsByName(String collectionName, String nameOfClient) {
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+
+        System.out.println("\nCOINCIDENCIAS:");
+        for (Document document : collection.find(
+                Filters.or(
+                        Filters.eq("cliente.nombre", nameOfClient) // Filtra por el nombre del cliente
+                ))) {
+            System.out.println(document.toString() + "\n");
+        }
+
+    }
+
+    public void printDocumentsByNameRegex(String collectionName, String nameOfClientRegex) {
+        MongoCollection<Document> collection = database.getCollection("contratos_04_2025");
+
+        System.out.println("\nCOINCIDENCIAS:");
+        for (Document document : collection.find(
+                Filters.or(
+                        Filters.regex("cliente.nombre", nameOfClientRegex)))) {
+            System.out.println(document.toString() + "\n");
+        }
+
+    }
+
+    public void calculateMonthlyBills(String collectionName){
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+
+        List<Document> dayList = new ArrayList<>();
+        for (Document document : collection.find(
+            Filters.and(
+                Filters.eq("consumos.dias")
+            ))
+        ) {
+            dayList.add(document);
+          
+        }
+        System.out.println(dayList);
+
+    }
+
+    public void insertClient(String collectionName, String nombre, String apellido) {
         MongoCollection<Document> collection = database.getCollection(collectionName);
 
         Document contract = new Document();
@@ -110,19 +156,16 @@ public class Mongo {
         contract.append("cliente", cliente);
 
         Document contrato = new Document();
-        contrato.append("id", "CON" + (2300000 + new Random().nextInt(3000))); 
-        contrato.append("fecha_renovacion", LocalDate.now() );
+        contrato.append("id", "CON" + (2300000 + new Random().nextInt(3000)));
+        contrato.append("fecha_renovacion", LocalDate.now());
         contract.append("contrato", contrato);
 
-
-
-        //Crea las horas con sus valores de gasto
+        // Crea las horas con sus valores de gasto
         Document hoursList = new Document();
         Random random = new Random();
         for (int hour = 1; hour <= 24; hour++) {
-            hoursList.append("hora"+ hour,random.nextInt(3)); 
+            hoursList.append("hora" + hour, random.nextInt(3));
         }
-
 
         List<Document> dias = new ArrayList<>();
         List<Document> dayInfo = new ArrayList<>();
@@ -130,7 +173,7 @@ public class Mongo {
         // añade por cada día un documento de las horas con sus valores
         for (int day = 1; day <= DummyDataGenerator.getDaysInMonth(collectionName.substring(11)); day++) {
             dayInfo.add(hoursList);
-            
+
         }
 
         // añade por cada día un documento de las horas con sus valores
@@ -138,19 +181,15 @@ public class Mongo {
             dias.add(document);
         }
 
-        // añade a consumos los dias 
+        // añade a consumos los dias
         Document consumos = new Document();
         consumos.append("dias", dias);
         contract.append("consumos", consumos);
 
-        //Document documentToInsert = new Document();
-        
-    
-    
-    
         collection.insertOne(contract);
 
-        System.out.println("client Inserted to collection '"+ collectionName +"' with: nombre: " + nombre + "apellido: " + apellido);
+        System.out.println("client Inserted to collection '" + collectionName + "' with: nombre: " + nombre
+                + "apellido: " + apellido);
 
     }
 
