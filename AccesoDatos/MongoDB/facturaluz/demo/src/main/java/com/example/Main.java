@@ -40,10 +40,10 @@ public class Main {
 
         Mongo mongoDataBase = new Mongo();
         mongoDataBase.mongoConnection();
-        List<Integer> integerList = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
+        //List<Integer> integerList = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
         
         //Nombre de la colección a insertar
-        String currentDate = "2025-04";
+        //String currentDate = "2025-04";
 
         //mongoDataBase.insertDummyData(1000, currentDate);  
 

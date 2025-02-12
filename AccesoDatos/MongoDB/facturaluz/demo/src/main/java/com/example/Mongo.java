@@ -129,20 +129,26 @@ public class Mongo {
 
     }
 
-    public void calculateMonthlyBills(String collectionName){
+    
+    //TODO:
+    public void calculateMonthlyBills(String collectionName) {
+        // Get the MongoDB collection
         MongoCollection<Document> collection = database.getCollection(collectionName);
-
-        List<Document> dayList = new ArrayList<>();
-        for (Document document : collection.find(
-            Filters.and(
-                Filters.eq("consumos.dias")
-            ))
-        ) {
-            dayList.add(document);
-          
+        List<Document> diasArray = new ArrayList<>();
+        // Iterate over all documents in the collection
+        for (Document document : collection.find()) {
+            // Extract the "dias" array from the document
+            diasArray = (List<Document>) document.get("dias");
+    
+            // Check if the "dias" array exists and is not null
+       
+            // Iterate over each element in the "dias" array
+            for (Document dia : diasArray) {
+                // Process each "dia" object here
+                System.out.println("Client: " + document.get("cliente.nombre") + ", Dia: " + dia);
+            }
+            
         }
-        System.out.println(dayList);
-
     }
 
     public void insertClient(String collectionName, String nombre, String apellido) {
