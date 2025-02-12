@@ -1,0 +1,27 @@
+
+    <h1>DEBERÍA MOSTRARSE</h1>
+
+
+<!-- War Overview -->
+<div class="bg-gray-800 rounded-lg shadow-lg p-6 mb-8 hover-scale border border-amber-300 border-opacity-20">
+    <h2 class="text-2xl font-bold text-amber-300 mb-4">War Overview</h2>
+    <div id="war-overview" class="text-gray-400">
+      <!-- War details will be dynamically inserted here -->
+      <p><strong>War ID:</strong> {{ warStatus?.warId }}</p>
+      <p><strong>Time:</strong> {{ warStatus?.time }}</p>
+      <p><strong>Impact Multiplier:</strong> {{ warStatus?.impactMultiplier }}</p>
+      <p><strong>Story Beat ID:</strong> {{ warStatus?.storyBeatId32 }}</p>
+    </div>
+  </div>
+  
+  <!-- Planet Status Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <!-- Planet status cards will be dynamically inserted here -->
+    <div *ngFor="let planet of warStatus?.planetStatus" class="bg-gray-800 rounded-lg shadow-lg p-6 hover-scale border border-amber-300 border-opacity-20">
+      <h3 class="text-xl font-bold text-amber-300 mb-2">Planet {{ planet.index }}</h3>
+      <p class="text-gray-400"><strong>Owner:</strong> {{ planet.owner === 1 ? 'Humans' : 'Aliens' }}</p>
+      <p class="text-gray-400"><strong>Health:</strong> {{ planet.health }}</p>
+      <p class="text-gray-400"><strong>Regen Per Second:</strong> {{ planet.regenPerSecond }}</p>
+      <p class="text-gray-400"><strong>Players:</strong> {{ planet.players }}</p>
+    </div>
+  </div>

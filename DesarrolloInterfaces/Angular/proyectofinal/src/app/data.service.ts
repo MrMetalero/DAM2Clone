@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataService {
-
   private usersLoginAccounts = new Map<string, string>([
     ['user1', '1234'],
     ['user2', '1234'],
@@ -15,55 +14,40 @@ export class DataService {
     ['alwaysup', '1234'],
   ]);
 
-  //En desuso por ahora
-  public usersLoggedInTokens = new Map<string | undefined, string>([
-    //Para tener siempre un usuario con logintoken. Debug
-    [this.usersLoginAccounts.get("alwaysup"),"logintoken1"],
-  ]);
+  // Key for session storage
+  private readonly SESSION_STORAGE_KEY = 'loggedInUser';
 
-  //Usando para la autenticación
-  private loggedInUser: string | null = null;
-
-  constructor() { 
-    
+  constructor() {
+    const storedUser = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
+    if (storedUser) {
+      this.loggedInUser = storedUser;
+    }
   }
-  
+
+  private loggedInUser: string | null = null;
 
   login(username: string | undefined, password: string | undefined): boolean {
     let isValid = false;
-  
+
     if (username && password && this.usersLoginAccounts.get(username) === password) {
       isValid = true;
       this.loggedInUser = username;
+      sessionStorage.setItem(this.SESSION_STORAGE_KEY, username);
     }
-  
+
     return isValid;
   }
 
-  //desuso
-  storeNewLoginToken(usernameLogin:string){
-    this.usersLoggedInTokens.set(usernameLogin,this.randomTokenGenerator())
-  }
-
-  //desuso
-  randomTokenGenerator(): string {
-    return Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
-  }
-
-  getLoggedInUser(): string | null {
+  public getLoggedInUser(): string | null {
     return this.loggedInUser;
   }
 
-  logout() {
+  logout(): void {
     this.loggedInUser = null;
+    sessionStorage.removeItem(this.SESSION_STORAGE_KEY);
   }
 
   hasValidSession(): boolean {
-    if (this.loggedInUser != null) {
-      return true
-    }else{
-      return false
-    }
- 
-}
+    return this.loggedInUser !== null;
+  }
 }
