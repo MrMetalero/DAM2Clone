@@ -1,0 +1,22 @@
+<div class="audio-player flex items-center space-x-4 bg-gray-800 p-2 rounded-lg shadow-lg border border-amber-300 border-opacity-30">
+    <button 
+      (click)="togglePlay()" 
+      class="px-4 py-2 text-lg font-bold text-gray-200 bg-gray-700 rounded-lg hover:bg-gray-600 transition"
+    >
+      {{ isPlaying ? 'Pause' : 'Play' }}
+    </button>
+  
+    <input 
+      type="range" 
+      min="0" 
+      max="1" 
+      step="0.01" 
+      [value]="volume" 
+      (input)="changeVolume($event)"
+      class="w-32 h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-amber-300"
+    >
+
+    <p class="text-amber-300 ml-auto text-right">
+      Let the songs of our ancestors guide your path...TO THE FUTURE!
+    </p>
+</div>

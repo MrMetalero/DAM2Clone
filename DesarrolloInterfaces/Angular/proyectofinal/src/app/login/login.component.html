@@ -1,10 +1,9 @@
 <h1 class="text-3xl font-bold text-center text-gray-800 mb-6 bg-amber-300 py-2">CREDENTIALS NEEDED CITIZEN</h1>
 
 <form (ngSubmit)="onSubmit()" class="max-w-md mx-auto bg-gray-900 p-8 rounded-lg shadow-lg border border-amber-300 border-opacity-30">
-    <!-- Error Message -->
+
     <p *ngIf="errorMessage" class="text-red-500 text-center font-semibold mb-4">{{ errorMessage }}</p>
     
-    <!-- Username Field -->
     <div class="mb-4">
         <input 
             type="text" 
@@ -17,7 +16,6 @@
         <div *ngIf="!loginAttemptUsername" class="text-red-500 text-sm mt-1">Username is required</div>
     </div>
     
-    <!-- Password Field -->
     <div class="mb-6">
         <input 
             type="password" 
@@ -30,7 +28,6 @@
         <div *ngIf="!loginAttemptPassword" class="text-red-500 text-sm mt-1">Password is required</div>
     </div>
     
-    <!-- Submit Button -->
     <input 
         type="submit" 
         name="submitLogin" 
@@ -40,7 +37,6 @@
     >
 </form>
 
-<!-- Patriotic Decoration -->
 <div class="mt-8 text-center bg-gray-900 p-6 rounded-lg shadow-lg border border-amber-500 border-opacity-30">
     <h2 class="text-2xl font-bold text-amber-300 mb-4">FOR THE GLORY OF THE FEDERATION!</h2>
     <p class="text-gray-300 italic">

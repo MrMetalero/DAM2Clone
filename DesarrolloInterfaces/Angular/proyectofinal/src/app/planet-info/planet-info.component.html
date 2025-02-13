@@ -11,7 +11,7 @@
 
     <!-- Planetas pillados de la api de helldivers -->
     <div *ngIf="!isLoading && !error" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div *ngFor="let planet of getPlanetArray()" class="bg-gray-800 rounded-lg shadow-lg p-6 hover:scale-105 transition-transform">
+        <div *ngFor="let planet of getPlanetArray()" class="bg-gray-800 rounded-lg shadow-lg p-6 m-2 md:m-0 lg:m-2  hover:scale-105 transition-transform">
             <img src="/assets/images/superearthflag.jpg" 
                  alt="Planet Image" 
                  class="w-full h-40 object-cover rounded-lg mb-4">
