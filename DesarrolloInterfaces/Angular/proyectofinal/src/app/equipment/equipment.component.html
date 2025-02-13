@@ -1,27 +1,66 @@
 
-    <h1>DEBERÍA MOSTRARSE</h1>
 
 
-<!-- War Overview -->
-<div class="bg-gray-800 rounded-lg shadow-lg p-6 mb-8 hover-scale border border-amber-300 border-opacity-20">
-    <h2 class="text-2xl font-bold text-amber-300 mb-4">War Overview</h2>
-    <div id="war-overview" class="text-gray-400">
-      <!-- War details will be dynamically inserted here -->
-      <p><strong>War ID:</strong> {{ warStatus?.warId }}</p>
-      <p><strong>Time:</strong> {{ warStatus?.time }}</p>
-      <p><strong>Impact Multiplier:</strong> {{ warStatus?.impactMultiplier }}</p>
-      <p><strong>Story Beat ID:</strong> {{ warStatus?.storyBeatId32 }}</p>
+<div class=" m-auto max-w-5xl w-full bg-gray-800 border border-amber-300 border-opacity-30 rounded-lg shadow-lg p-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+  <div class="flex flex-col justify-center">
+      <h2 class="text-4xl font-extrabold text-amber-300 mb-4">
+          ARM YOURSELF FOR GLORY!
+      </h2>
+      <p class="text-lg text-gray-400 mb-6">
+          Only the bravest soldiers wield the finest weapons. Our **military-grade** equipment ensures you bring 
+          *liberty, democracy, and a high-caliber response* to our enemies. **Join the fight** and claim the tools 
+          of a true Helldiver!
+      </p>
+      <p class="text-gray-400">
+          Enlist today, and receive a **FREE** set of armor upgrades. **The Federation needs YOU!**
+      </p>
+  </div>
+
+  <div class="relative flex justify-center items-center">
+      <button class="relative w-full h-64 bg-blue-200 bg-cover bg-center rounded-lg shadow-lg transform hover:scale-105 transition-all"
+          style="background-image: url('assets/images/Helldivers-2-PNG.png');">
+          <span class="relative text-2xl font-bold text-white uppercase tracking-wide p-1 bg-black rounded-lg">
+              Get Equipped Now!
+          </span>
+      </button>
+  </div>
+
+</div>
+
+
+
+<div class="container mx-auto px-4 py-8">
+  <div class="text-center mb-8 bg-gray-800 bg-opacity-10 rounded-lg p-6">
+    <h1 class="text-4xl font-bold text-amber-300 mb-4">Gear Up for the Glory of Humanity!</h1>
+    <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+      Face the alien hordes with the best military equipment. From cutting-edge firearms to impenetrable armor, everything you need for victory is here.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <!-- Firearms -->
+    <div class="relative bg-gray-800 rounded-lg shadow-lg p-6 border border-amber-300 border-opacity-20">
+      <button (click)="addFirearm()" class="absolute top-2 right-2 bg-amber-300 text-gray-900 rounded-full w-8 h-8 flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
+        +
+      </button>
+      <h2 class="text-2xl font-bold text-amber-300 mb-4">Firearms</h2>
+      <p class="text-gray-400">Our firearms are designed for maximum damage and battlefield efficiency.</p>
+      <ul class="mt-4 text-gray-400">
+        <li *ngFor="let firearm of firearms">{{ firearm }}</li>
+      </ul>
+    </div>
+
+    <!-- Armor & Equipment -->
+    <div class="relative bg-gray-800 rounded-lg shadow-lg p-6 border border-amber-300 border-opacity-20">
+      <button (click)="addArmor()" class="absolute top-2 right-2 bg-amber-300 text-gray-900 rounded-full w-8 h-8 flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
+        +
+      </button>
+      <h2 class="text-2xl font-bold text-amber-300 mb-4">Armor & Equipment</h2>
+      <p class="text-gray-400">Protect yourself with our high-resistance armor.</p>
+      <ul class="mt-4 text-gray-400">
+        <li *ngFor="let armor of armors">{{ armor }}</li>
+      </ul>
     </div>
   </div>
-  
-  <!-- Planet Status Grid -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-    <!-- Planet status cards will be dynamically inserted here -->
-    <div *ngFor="let planet of warStatus?.planetStatus" class="bg-gray-800 rounded-lg shadow-lg p-6 hover-scale border border-amber-300 border-opacity-20">
-      <h3 class="text-xl font-bold text-amber-300 mb-2">Planet {{ planet.index }}</h3>
-      <p class="text-gray-400"><strong>Owner:</strong> {{ planet.owner === 1 ? 'Humans' : 'Aliens' }}</p>
-      <p class="text-gray-400"><strong>Health:</strong> {{ planet.health }}</p>
-      <p class="text-gray-400"><strong>Regen Per Second:</strong> {{ planet.regenPerSecond }}</p>
-      <p class="text-gray-400"><strong>Players:</strong> {{ planet.players }}</p>
-    </div>
-  </div>
+</div>

@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { authGuard } from './auth.guard';
 import { KnowmoreComponent } from './knowmore/knowmore.component';
 import { EquipmentComponent } from './equipment/equipment.component';
+import { PlanetInfoComponent } from './planet-info/planet-info.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -13,6 +14,7 @@ export const routes: Routes = [
     {path: 'dashboard',component: DashboardComponent,canActivate: [authGuard] },
     {path: 'knowmore',component: KnowmoreComponent,canActivate: [authGuard] },
     {path: 'equipment',component: EquipmentComponent,canActivate: [authGuard] },
+    {path: 'planet-info',component: PlanetInfoComponent,canActivate: [authGuard] },
 
 
 

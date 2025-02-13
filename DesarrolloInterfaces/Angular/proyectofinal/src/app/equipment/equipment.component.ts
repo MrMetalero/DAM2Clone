@@ -1,50 +1,44 @@
-import { Router, RouterModule, RouterLink } from '@angular/router';
-import { DataService } from './../data.service';
+import { Component, OnInit } from '@angular/core';
+import { WarService, WarStatus } from '../war.service';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { RouterLink } from '@angular/router';
+import { Observable } from 'rxjs';
 
-
-interface PlanetStatus {
-  index: number;
-  owner: number;
-  health: number;
-  regenPerSecond: number;
-  players: number;
-}
-
-interface WarStatus {
-  warId: number;
-  time: number;
-  impactMultiplier: number;
-  storyBeatId32: number;
-  planetStatus: PlanetStatus[];
-}
 @Component({
   selector: 'app-equipment',
   standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './equipment.component.html',
-  styleUrl: './equipment.component.css'
+  styleUrls: ['./equipment.component.css']
 })
-export class EquipmentComponent {
-  warStatus: WarStatus | null = null;
-  constructor(dataService:DataService, private http: HttpClient){}
-  
-  ngOnInit(): void {
-    this.fetchWarStatus();
+
+
+export class EquipmentComponent implements OnInit {
+  firearms: string[] = [];
+  armors: string[] = [];
+
+  ngOnInit() {
+    this.loadEquipment();
   }
 
-  fetchWarStatus(): void {
-    this.http.get<WarStatus>('https://helldiverstrainingmanual.com/api/v1/war/status')
-      .subscribe(
-        (data) => {
-          this.warStatus = data;
-        },
-        (error) => {
-          console.error('Error fetching war status:', error);
-        }
-      );
+  loadEquipment() {
+    this.firearms = JSON.parse(localStorage.getItem('firearms') || '[]');
+    this.armors = JSON.parse(localStorage.getItem('armors') || '[]');
   }
 
+  addFirearm() {
+    const newFirearm = prompt('Enter the name of the new firearm:');
+    if (newFirearm) {
+      this.firearms.push(newFirearm);
+      localStorage.setItem('firearms', JSON.stringify(this.firearms));
+    }
+  }
+
+  addArmor() {
+    const newArmor = prompt('Enter the name of the new armor:');
+    if (newArmor) {
+      this.armors.push(newArmor);
+      localStorage.setItem('armors', JSON.stringify(this.armors));
+    }
+  }
 }
