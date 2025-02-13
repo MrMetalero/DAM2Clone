@@ -1,0 +1,73 @@
+.door {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    transition: transform 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; 
+    background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6));
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.6);
+}
+
+.door.left {
+    background-position: left;
+    border-right: 2px solid #f59e0b;
+}
+
+.door.right {
+    background-position: right;
+    border-left: 2px solid #f59e0b; 
+}
+
+.door.open {
+    transform: translateX(100%);
+}
+
+.door.left.open {
+    transform: translateX(-100%);
+}
+
+.door.right.open {
+    transform: translateX(100%);
+}
+
+.door span {
+    position: relative;
+    z-index: 10;
+    font-weight: bold;
+    color: #f59e0b; 
+    background: linear-gradient(45deg, #f59e0b, #d97706, #b45309); 
+    -webkit-background-clip: text; 
+    background-clip: text;
+    color: transparent; 
+    text-shadow: 
+        1px 1px 2px rgba(0, 0, 0, 0.2), 
+        0 0 10px rgba(245, 158, 11, 0.8); 
+    font-family: 'Orbitron', sans-serif; 
+}
+
+.door::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); 
+    z-index: 5; 
+    filter: blur(5px); 
+}
+
+@media (max-width: 768px) {
+    .door {
+        width: 100%;
+        height: 50vh; 
+    }
+
+    .door.left, .door.right {
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+}

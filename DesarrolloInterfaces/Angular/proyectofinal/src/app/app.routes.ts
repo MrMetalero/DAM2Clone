@@ -7,6 +7,7 @@ import { authGuard } from './auth.guard';
 import { KnowmoreComponent } from './knowmore/knowmore.component';
 import { EquipmentComponent } from './equipment/equipment.component';
 import { PlanetInfoComponent } from './planet-info/planet-info.component';
+import { VideoComponent } from './video/video.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -15,6 +16,8 @@ export const routes: Routes = [
     {path: 'knowmore',component: KnowmoreComponent,canActivate: [authGuard] },
     {path: 'equipment',component: EquipmentComponent,canActivate: [authGuard] },
     {path: 'planet-info',component: PlanetInfoComponent,canActivate: [authGuard] },
+    { path: 'video', component: VideoComponent, canActivate: [authGuard] }, 
+
 
 
 

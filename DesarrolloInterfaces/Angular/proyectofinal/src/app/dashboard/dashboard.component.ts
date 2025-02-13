@@ -13,7 +13,7 @@ import { Router, RouterLink } from '@angular/router';
 export class DashboardComponent {
   loggedInUser: string | null = null;
   currentSlide = 0;
-  totalSlides = 3; // Number of slides
+  totalSlides = 3; 
 
   nextSlide() {
     this.currentSlide = (this.currentSlide + 1) % this.totalSlides;

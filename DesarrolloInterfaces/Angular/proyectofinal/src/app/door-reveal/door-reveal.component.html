@@ -1,0 +1,15 @@
+<div *ngIf="isVisible" class="fixed inset-0 flex items-center justify-center z-50 overflow-hidden">
+    <div class="absolute inset-0 flex">
+
+        <div class="door left bg-cover bg-no-repeat flex items-center justify-center relative" 
+             [style.background-image]="'url(assets/images/doorleft.png)'">
+            <span class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold">WELCOME</span>
+        </div>
+
+        
+        <div class="door right bg-cover bg-no-repeat flex items-center justify-center relative" 
+             [style.background-image]="'url(assets/images/doorright.png)'">
+            <span class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold">CITIZEN</span>
+        </div>
+    </div>
+</div>

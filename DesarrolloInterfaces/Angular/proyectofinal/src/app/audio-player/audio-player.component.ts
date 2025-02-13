@@ -14,14 +14,13 @@ import { Input, OnInit, OnDestroy } from '@angular/core';
 export class AudioPlayerComponent implements OnInit, OnDestroy {
   @Input() audioFile: string = 'mainTheme.mp3'; 
   audio = new Audio();
-  isPlaying = true;
-  volume = 0.5; // Default volume (50%)
+  isPlaying = false;
+  volume = 0.5; 
 
   ngOnInit() {
     this.audio.src = `assets/sounds/${this.audioFile}`;
     this.audio.volume = this.volume;
     this.audio.load();
-    this.audio.play();
   }
 
   togglePlay() {

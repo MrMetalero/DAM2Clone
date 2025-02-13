@@ -25,9 +25,9 @@ interface Planet {
   
 })
 export class PlanetInfoComponent implements OnInit {
-  planets: { [key: string]: Planet } = {}; // Store planet data
-  isLoading = true; // Loading state
-  error: string | null = null; // Error state
+  planets: { [key: string]: Planet } = {}; 
+  isLoading = true; 
+  error: string | null = null; 
 
   constructor(private http: HttpClient) {}
 

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VideoLauncherComponent } from './video-launcher.component';
+import { VideoComponent } from './video.component';
 
-describe('VideoLauncherComponent', () => {
-  let component: VideoLauncherComponent;
-  let fixture: ComponentFixture<VideoLauncherComponent>;
+describe('VideoComponent', () => {
+  let component: VideoComponent;
+  let fixture: ComponentFixture<VideoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [VideoLauncherComponent]
+      imports: [VideoComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(VideoLauncherComponent);
+    fixture = TestBed.createComponent(VideoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
