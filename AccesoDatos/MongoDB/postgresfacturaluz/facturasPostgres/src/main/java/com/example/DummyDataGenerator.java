@@ -6,16 +6,17 @@ import java.time.YearMonth;
 import java.util.*;
 
 public class DummyDataGenerator {
-
+   
     public static void generateDummyData(Connection connection, int numberOfContracts, String date) throws SQLException {
         Random random = new Random();
         int daysInMonth = getDaysInMonth(date);
+        RandomNumberGenerator generator = new RandomNumberGenerator(1, 100000);
 
         long startTime = System.nanoTime();
 
         for (int i = 0; i < numberOfContracts; i++) {
 
-            String clienteNombre = "Jose" + (i + 1);
+            String clienteNombre = "Jose" + (generator.getNextID());
             String clienteApellido = "ApellidoJose";
             String insertClienteSQL = "INSERT INTO clientes (nombre, apellido) VALUES (?, ?) RETURNING id";
             PreparedStatement clienteStmt = connection.prepareStatement(insertClienteSQL);

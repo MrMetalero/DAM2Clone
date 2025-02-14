@@ -11,7 +11,9 @@ import org.bson.Document;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.time.LocalDate;
 
@@ -130,26 +132,49 @@ public class Mongo {
     }
 
     
-    //TODO:
+    //TODO: todavia no sumo los valores de cada día
     public void calculateMonthlyBills(String collectionName) {
-        // Get the MongoDB collection
+        
         MongoCollection<Document> collection = database.getCollection(collectionName);
-        List<Document> diasArray = new ArrayList<>();
-        // Iterate over all documents in the collection
-        for (Document document : collection.find()) {
-            // Extract the "dias" array from the document
-            diasArray = (List<Document>) document.get("dias");
     
-            // Check if the "dias" array exists and is not null
-       
-            // Iterate over each element in the "dias" array
-            for (Document dia : diasArray) {
-                // Process each "dia" object here
-                System.out.println("Client: " + document.get("cliente.nombre") + ", Dia: " + dia);
+        for (Document document : collection.find()) {
+            Object consumosObj = document.get("consumos");
+    
+            if (consumosObj instanceof Document consumos) {
+                Object diasObj = consumos.get("dias");
+    
+                //Esto lo he tenido que buscar porque no me queria pillar el parse a document
+                if (diasObj instanceof List<?> dias) {
+                    System.out.println("Document ID: " + document.getObjectId("_id"));
+
+                    for (int dayIndex = 0; dayIndex < dias.size(); dayIndex++) {
+                        Object diaObj = dias.get(dayIndex);
+                        Double monthlyTotal = 0.0;
+    
+                        if (diaObj instanceof Document dia) {
+                            Double dailyTotal = 0.0;
+    
+                            for (int i = 1; i <= 24; i++) {
+                                String key = "hora" + i;
+                                Double value = Double.parseDouble(dia.getString(key).replace(",", ".")) ; 
+                                dailyTotal += value;
+                            }
+    
+                            // formateado a 2 decimales mejor
+                            //System.out.println("Total consumption for day " + (dayIndex + 1) + ": " + String.format("%.2f", dailyTotal) );
+                            monthlyTotal += dailyTotal;
+                        }
+                        
+                        System.out.println("Total consumption for day " + (dayIndex + 1) + ": " + String.format("%.2f", monthlyTotal) );
+
+                    }
+                }
             }
-            
         }
     }
+    
+    
+    
 
     public void insertClient(String collectionName, String nombre, String apellido) {
         MongoCollection<Document> collection = database.getCollection(collectionName);
