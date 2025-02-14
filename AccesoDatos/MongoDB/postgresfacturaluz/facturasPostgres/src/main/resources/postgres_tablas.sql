@@ -1,6 +1,5 @@
--- Active: 1727983525436@@127.0.0.1@5432@facturaluz
+-- Active: 1726053967925@@127.0.0.1@5432@facturaluz
 
-CREATE DATABASE facturaluz;
 
 CREATE TABLE clientes (
     id SERIAL PRIMARY KEY,
@@ -11,15 +10,112 @@ CREATE TABLE clientes (
 CREATE TABLE contratos (
     cliente_id INTEGER REFERENCES clientes(id) ON DELETE CASCADE,
     fecha_renovacion DATE NOT NULL,
-    PRIMARY KEY (cliente_id, fecha_renovacion) 
+    PRIMARY KEY (cliente_id) 
 );
 
-CREATE TABLE consumos (
-    id SERIAL ,
-    cliente_id INTEGER REFERENCES clientes(id) ON DELETE CASCADE,
-    fecha_renovacion DATE NOT NULL,
+
+CREATE TABLE consumos_enero (
+    cliente_id INTEGER,
+    fecha_renovacion INTEGER
     dia INTEGER NOT NULL CHECK (dia BETWEEN 1 AND 31),
-    horas INTEGER[] NOT NULL, 
-    FOREIGN KEY (cliente_id, fecha_renovacion) REFERENCES contratos(cliente_id, fecha_renovacion) ON DELETE CASCADE,
-    PRIMARY KEY (cliente_id, fecha_renovacion, dia)
+    horas DOUBLE PRECISION[] NOT NULL, 
+    FOREIGN KEY (cliente_id) REFERENCES contratos(cliente_id) ON DELETE CASCADE,
+    PRIMARY KEY (cliente_id, dia)
+);
+
+
+CREATE TABLE consumos_febrero (
+    cliente_id INTEGER,
+    dia INTEGER NOT NULL CHECK (dia BETWEEN 1 AND 31),
+    horas DOUBLE PRECISION[] NOT NULL,  
+    FOREIGN KEY (cliente_id) REFERENCES contratos(cliente_id) ON DELETE CASCADE,
+    PRIMARY KEY (cliente_id, dia)
+);
+
+CREATE TABLE consumos_marzo (
+         cliente_id INTEGER,
+    dia INTEGER NOT NULL CHECK (dia BETWEEN 1 AND 31),
+     horas DOUBLE PRECISION[] NOT NULL,  
+    FOREIGN KEY (cliente_id) REFERENCES contratos(cliente_id) ON DELETE CASCADE,
+    PRIMARY KEY (cliente_id, dia)
+);
+
+CREATE TABLE consumos_abril (
+         cliente_id INTEGER,
+    dia INTEGER NOT NULL CHECK (dia BETWEEN 1 AND 31),
+     horas DOUBLE PRECISION[] NOT NULL,  
+    FOREIGN KEY (cliente_id) REFERENCES contratos(cliente_id) ON DELETE CASCADE,
+    PRIMARY KEY (cliente_id, dia)
+);
+
+CREATE TABLE consumos_mayo (
+         cliente_id INTEGER,
+    dia INTEGER NOT NULL CHECK (dia BETWEEN 1 AND 31),
+     horas DOUBLE PRECISION[] NOT NULL,  
+    FOREIGN KEY (cliente_id) REFERENCES contratos(cliente_id) ON DELETE CASCADE,
+    PRIMARY KEY (cliente_id, dia)
+);
+
+CREATE TABLE consumos_junio (
+         cliente_id INTEGER,
+    dia INTEGER NOT NULL CHECK (dia BETWEEN 1 AND 31),
+     horas DOUBLE PRECISION[] NOT NULL,  
+    FOREIGN KEY (cliente_id) REFERENCES contratos(cliente_id) ON DELETE CASCADE,
+    PRIMARY KEY (cliente_id, dia)
+);
+
+CREATE TABLE consumos_julio (
+         cliente_id INTEGER,
+    dia INTEGER NOT NULL CHECK (dia BETWEEN 1 AND 31),
+     horas DOUBLE PRECISION[] NOT NULL,  
+    FOREIGN KEY (cliente_id) REFERENCES contratos(cliente_id) ON DELETE CASCADE,
+    PRIMARY KEY (cliente_id, dia)
+);
+
+CREATE TABLE consumos_agosto (
+         cliente_id INTEGER,
+    dia INTEGER NOT NULL CHECK (dia BETWEEN 1 AND 31),
+     horas DOUBLE PRECISION[] NOT NULL,  
+    FOREIGN KEY (cliente_id) REFERENCES contratos(cliente_id) ON DELETE CASCADE,
+    PRIMARY KEY (cliente_id, dia)
+);
+
+CREATE TABLE consumos_septiembre (
+         cliente_id INTEGER,
+    dia INTEGER NOT NULL CHECK (dia BETWEEN 1 AND 31),
+     horas DOUBLE PRECISION[] NOT NULL,  
+    FOREIGN KEY (cliente_id) REFERENCES contratos(cliente_id) ON DELETE CASCADE,
+    PRIMARY KEY (cliente_id, dia)
+);
+
+CREATE TABLE consumos_octubre (
+         cliente_id INTEGER,
+    dia INTEGER NOT NULL CHECK (dia BETWEEN 1 AND 31),
+     horas DOUBLE PRECISION[] NOT NULL,  
+    FOREIGN KEY (cliente_id) REFERENCES contratos(cliente_id) ON DELETE CASCADE,
+    PRIMARY KEY (cliente_id, dia)
+);
+
+CREATE TABLE consumos_noviembre (
+         cliente_id INTEGER,
+    dia INTEGER NOT NULL CHECK (dia BETWEEN 1 AND 31),
+     horas DOUBLE PRECISION[] NOT NULL,  
+    FOREIGN KEY (cliente_id) REFERENCES contratos(cliente_id) ON DELETE CASCADE,
+    PRIMARY KEY (cliente_id, dia)
+);
+
+CREATE TABLE consumos_diciembre (
+         cliente_id INTEGER,
+    dia INTEGER NOT NULL CHECK (dia BETWEEN 1 AND 31),
+     horas DOUBLE PRECISION[] NOT NULL,  
+    FOREIGN KEY (cliente_id) REFERENCES contratos(cliente_id) ON DELETE CASCADE,
+    PRIMARY KEY (cliente_id, dia)
+);
+
+CREATE TABLE consumos_diciembre (
+         cliente_id INTEGER,
+    dia INTEGER NOT NULL CHECK (dia BETWEEN 1 AND 31),
+     horas DOUBLE PRECISION[] NOT NULL,  
+    FOREIGN KEY (cliente_id) REFERENCES contratos(cliente_id) ON DELETE CASCADE,
+    PRIMARY KEY (cliente_id, dia)
 );

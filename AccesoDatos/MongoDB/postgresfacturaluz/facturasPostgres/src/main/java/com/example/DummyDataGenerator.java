@@ -41,7 +41,7 @@ public class DummyDataGenerator {
                 }
 
                 // el array dentro de consumos
-                String insertConsumoSQL = "INSERT INTO consumos (cliente_id, fecha_renovacion, dia, horas) VALUES (?, ?, ?, ?)";
+                String insertConsumoSQL = "INSERT INTO consumos_abril (cliente_id, fecha_renovacion, dia, horas) VALUES (?, ?, ?, ?)";
                 PreparedStatement consumoStmt = connection.prepareStatement(insertConsumoSQL);
                 consumoStmt.setInt(1, clienteId);
                 consumoStmt.setDate(2, Date.valueOf(date + "-01"));

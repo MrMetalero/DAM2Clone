@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Random;
 
+import com.example.Main.Consumos;
+
 public class PostgresCrood {
     
     private Connection connection;
@@ -17,8 +19,6 @@ public class PostgresCrood {
         public PostgresCrood(Connection connection) {
             this.connection = connection;
     }
-
-
     
     public void insertClient(String nombre, String apellido) throws SQLException {
         String insertClienteSQL = "INSERT INTO clientes (nombre, apellido) VALUES (?, ?) RETURNING id";
@@ -42,8 +42,20 @@ public class PostgresCrood {
         }
     }
 
-    public void insertConsumo(int clienteId, String fechaRenovacion, int dia, Integer[] horas) throws SQLException {
-        String insertConsumoSQL = "INSERT INTO consumos (cliente_id, fecha_renovacion, dia, horas) VALUES (?, ?, ?, ?)";
+    public void insertConsumo(int clienteId, String fechaRenovacion, int dia, Double[] horas) throws SQLException {
+        String insertConsumoSQL = "INSERT INTO consumos_abril (cliente_id, fecha_renovacion, dia, horas) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement consumoStmt = connection.prepareStatement(insertConsumoSQL)) {
+            consumoStmt.setInt(1, clienteId);
+            consumoStmt.setDate(2, Date.valueOf(fechaRenovacion));
+            consumoStmt.setInt(3, dia);
+            consumoStmt.setArray(4, connection.createArrayOf("INTEGER", horas));
+            consumoStmt.executeUpdate();
+            System.out.println("Inserted consumption data for client ID: " + clienteId + ", day: " + dia);
+        }
+    }
+
+    public void insertConsumoModular(int clienteId, String fechaRenovacion, int dia, Double[] horas,Consumos tablaDondeInsertar) throws SQLException {
+        String insertConsumoSQL = "INSERT INTO "+tablaDondeInsertar +" (cliente_id, fecha_renovacion, dia, horas) VALUES (?, ?, ?, ?)";
         try (PreparedStatement consumoStmt = connection.prepareStatement(insertConsumoSQL)) {
             consumoStmt.setInt(1, clienteId);
             consumoStmt.setDate(2, Date.valueOf(fechaRenovacion));
@@ -70,18 +82,18 @@ public class PostgresCrood {
             billsStmt.setDate(2, Date.valueOf(fechaRenovacion));
             ResultSet rs = billsStmt.executeQuery();
 
-            double totalBill = 0;
+            double total = 0;
             while (rs.next()) {
                 int dia = rs.getInt("dia");
                 Array horasArray = rs.getArray("horas");
                 Integer[] horas = (Integer[]) horasArray.getArray();
 
-                double dailyBill = Arrays.stream(horas).mapToInt(Integer::intValue).sum();
-                totalBill += dailyBill;
+                double dailyTotal = Arrays.stream(horas).mapToInt(Integer::intValue).sum();
+                total += dailyTotal;
 
-                System.out.println("Day: " + dia + ", Daily Bill: " + dailyBill);
+                System.out.println("Day: " + dia + ", Daily Bill: " + dailyTotal);
             }
-            System.out.println("Total Monthly Bill: " + totalBill);
+            System.out.println("Total Monthly Bill: " + total);
         }
     }
 }
