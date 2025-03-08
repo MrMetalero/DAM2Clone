@@ -8,6 +8,7 @@ COST 100
 VOLATILE NOT LEAKPROOF
 AS $body$
 DECLARE
+   
 
 BEGIN
     UPDATE ligas SET numequipos = (SELECT COUNT(*) FROM equipos WHERE equipos.fk_nivel_liga = ligas.nivel AND equipos.fk_nombre_pais_liga = ligas.fk_nombre_pais);
