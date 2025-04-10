@@ -1,8 +1,8 @@
-CREATE
+CREATE DATABASE musica
 
 
 
-
+START TRANSACTION;
 
 CREATE TABLE artista (
   dni VARCHAR(10) NOT NULL, 
@@ -227,14 +227,33 @@ INSERT INTO cancion (cod, titulo, duracion) VALUES (185, 'Zooropa', 6);
 INSERT INTO cancion (cod, titulo, duracion) VALUES (186, 'Hold on my heart', 4);
 
 
-CREATE TABLE club (
+
+CREATE TABLE grupo (
   cod VARCHAR(3) NOT NULL, 
   nombre VARCHAR(30) NOT NULL, 
-  sede VARCHAR(30), 
-  num INTEGER, 
-  cod_gru VARCHAR(3) NOT NULL, 
+  fecha DATE, 
+  pais VARCHAR(10), 
   PRIMARY KEY (cod)
 ) ;
+
+
+INSERT INTO grupo (cod, nombre, fecha, pais) VALUES ('1  ', 'U2', '1977-01-01 00:00:00', 'Inglaterra');
+INSERT INTO grupo (cod, nombre, fecha, pais) VALUES ('2  ', 'Simple Minds', '1979-02-09 00:00:00', 'Inglaterra');
+INSERT INTO grupo (cod, nombre, fecha, pais) VALUES ('3  ', 'Mike + The Mechanics', '1988-04-06 00:00:00', 'Inglaterra');
+INSERT INTO grupo (cod, nombre, fecha, pais) VALUES ('4  ', 'Genesis', '1975-10-10 00:00:00', 'Inglaterra');
+INSERT INTO grupo (cod, nombre, fecha, pais) VALUES ('5  ', 'Presuntos Implicados', '1985-11-01 00:00:00', 'España');
+INSERT INTO grupo (cod, nombre, fecha, pais) VALUES ('6  ', 'Radio Futura', '1980-01-07 00:00:00', 'España');
+
+
+CREATE TABLE club(
+    cod varchar(3) NOT NULL,
+    nombre varchar(30) NOT NULL,
+    sede varchar(30),
+    num integer,
+    cod_gru varchar(3) NOT NULL,
+    PRIMARY KEY(cod),
+    CONSTRAINT cod_grupo_club_fk FOREIGN key(cod_gru) REFERENCES grupo(cod)
+);
 
 
 INSERT INTO club (cod, nombre, sede, num, cod_gru) VALUES ('1  ', 'Zoomania', '33, Abbey Road', 2508, '1  ');
@@ -275,13 +294,15 @@ INSERT INTO companyia (cod, nombre, dir, fax, tfno) VALUES ('6  ', 'PoliDiscos',
 INSERT INTO companyia (cod, nombre, dir, fax, tfno) VALUES ('7  ', 'PoliDiscos', 'Polynesia St.', '    942380540', '    942380522');
 
 
-CREATE TABLE disco (
-  cod VARCHAR(3) NOT NULL, 
-  nombre VARCHAR(30), 
-  fecha DATE, 
-  cod_comp VARCHAR(3) NOT NULL, 
-  cod_gru VARCHAR(3) NOT NULL, 
-  PRIMARY KEY (cod)
+CREATE TABLE disco(
+    cod varchar(3) NOT NULL,
+    nombre varchar(30),
+    fecha date,
+    cod_comp varchar(3) NOT NULL,
+    cod_gru varchar(3) NOT NULL,
+    PRIMARY KEY(cod),
+    CONSTRAINT cod_gru_fk FOREIGN key(cod_gru) REFERENCES grupo(cod),
+    CONSTRAINT companya_codigo_fk FOREIGN key(cod_comp) REFERENCES companyia(cod)
 );
 
 
@@ -305,10 +326,12 @@ INSERT INTO disco (cod, nombre, fecha, cod_comp, cod_gru) VALUES ('8  ', 'Sister
 INSERT INTO disco (cod, nombre, fecha, cod_comp, cod_gru) VALUES ('9  ', 'Living years', '1988-04-02 00:00:00', '5  ', '3  ');
 
 
-CREATE TABLE esta (
-  can INTEGER NOT NULL, 
-  cod VARCHAR(3) NOT NULL, 
-  PRIMARY KEY (can, cod)
+CREATE TABLE esta(
+    can integer NOT NULL,
+    cod varchar(3) NOT NULL,
+    PRIMARY KEY(can,cod),
+    CONSTRAINT cod_disco_cod_fk FOREIGN key(cod) REFERENCES disco(cod),
+    CONSTRAINT cancion_cod_fk FOREIGN key(can) REFERENCES cancion(cod)
 );
 
 
@@ -497,28 +520,13 @@ INSERT INTO esta (can, cod) VALUES (184, '4  ');
 INSERT INTO esta (can, cod) VALUES (185, '2  ');
 INSERT INTO esta (can, cod) VALUES (186, '11 ');
 
-
-CREATE TABLE grupo (
-  cod VARCHAR(3) NOT NULL, 
-  nombre VARCHAR(30) NOT NULL, 
-  fecha DATE, 
-  pais VARCHAR(10), 
-  PRIMARY KEY (cod)
-) ;
-
-
-INSERT INTO grupo (cod, nombre, fecha, pais) VALUES ('1  ', 'U2', '1977-01-01 00:00:00', 'Inglaterra');
-INSERT INTO grupo (cod, nombre, fecha, pais) VALUES ('2  ', 'Simple Minds', '1979-02-09 00:00:00', 'Inglaterra');
-INSERT INTO grupo (cod, nombre, fecha, pais) VALUES ('3  ', 'Mike + The Mechanics', '1988-04-06 00:00:00', 'Inglaterra');
-INSERT INTO grupo (cod, nombre, fecha, pais) VALUES ('4  ', 'Genesis', '1975-10-10 00:00:00', 'Inglaterra');
-INSERT INTO grupo (cod, nombre, fecha, pais) VALUES ('5  ', 'Presuntos Implicados', '1985-11-01 00:00:00', 'España');
-INSERT INTO grupo (cod, nombre, fecha, pais) VALUES ('6  ', 'Radio Futura', '1980-01-07 00:00:00', 'España');
-
-CREATE TABLE pertence (
-  dni VARCHAR(10) NOT NULL, 
-  cod VARCHAR(3) NOT NULL, 
-  funcion VARCHAR(15), 
-  PRIMARY KEY (dni, cod)
+CREATE TABLE pertence(
+    dni varchar(10) NOT NULL,
+    cod varchar(3) NOT NULL,
+    funcion varchar(15),
+    PRIMARY KEY(dni,cod),
+    CONSTRAINT dni_artista_fk FOREIGN key(dni) REFERENCES artista(dni),
+    CONSTRAINT cod_grupo_fk FOREIGN key(cod) REFERENCES grupo(cod)
 );
 
 INSERT INTO pertence (dni, cod, funcion) VALUES ('1111111111', '3  ', 'teclado');
@@ -542,4 +550,7 @@ INSERT INTO pertence (dni, cod, funcion) VALUES ('7876543428', '4  ', 'teclado')
 INSERT INTO pertence (dni, cod, funcion) VALUES ('8884566666', '3  ', 'bajo');
 INSERT INTO pertence (dni, cod, funcion) VALUES ('8884566666', '4  ', 'bajo');
 
+COMMIT;
 
+
+ROLLBACK;

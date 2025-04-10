@@ -1,69 +1,42 @@
--- 2 Crea una restricción que evite que se inserte un artista sin grupo.
+UPDATE grupo 
+SET n_participantes = (
+    SELECT COUNT(*) FROM pertence  WHERE pertence.cod = grupo.cod
+);
 
 
---INSERTO ARTISTA, DEBE TRIGGEREAR ANTES DE QUE SE INSERTE, 
---UN INSERT DE GRUPO Y UN INSERT EN PERTENECE
---SE DEBERÁ HACER EN UNA TRANSACCIÓN LOS INSERTS 
-
-/*
-    SI SE AFECTA AL ARTISTA O GRUPO CON UPDATE, TENER UN ON UPDATE CASCADE DE 
-    LA CLAVE PRIMARIA SERÍA LO PROPIO PARA QUE NO TENGAMOS PROBLEMAS DE INTEGRIDAD 
-    DE LOS DATOS EN LA RELACIÓN PERTENECE
-
-    PROCESOS AFECTADOS: 
-    AFTER INSERT ARTISTA, (Porque hace falta la transacción)
-    AFTER UPDATE, 
-    
-    BEFORE DELETE DE GRUPO, pero no se pide
-
-*/
-
--- IF NOT EXISTS (SELECT dni FROM pertence WHERE dni = NEW.dni) ES MEJOR, más segura
-
-CREATE OR REPLACE FUNCTION no_permitir_artistas_sin_grupos() 
-RETURNS TRIGGER
-LANGUAGE 'plpgsql'
-COST 100
-VOLATILE NOT LEAKPROOF
-AS $body$
+CREATE OR REPLACE FUNCTION actualizar_n_participantes() 
+RETURNS TRIGGER 
+LANGUAGE plpgsql 
+AS $$
 BEGIN
-    IF NOT EXISTS (SELECT dni FROM pertence WHERE dni = NEW.dni) THEN
-        RAISE EXCEPTION 'NO SE PUEDE INSERTAR UN ARTISTA SIN GRUPO';
-        RETURN NULL;
-    ELSE
-        RETURN NEW;
+    IF TG_OP = 'INSERT' THEN
+        UPDATE grupo 
+        SET n_participantes = n_participantes + 1
+        WHERE cod = NEW.cod;
+    ELSIF TG_OP = 'DELETE' THEN
+        UPDATE grupo 
+        SET n_participantes = n_participantes - 1
+        WHERE cod = OLD.cod;
     END IF;
-
+    
+    RETURN NULL;
 END;
-$body$;
+$$;
+
+--Mas facilillo detectando la operación y au
+CREATE OR REPLACE TRIGGER tg_actualizar_n_participantes_insert
+AFTER INSERT ON pertence
+FOR EACH ROW 
+EXECUTE FUNCTION actualizar_n_participantes();
+
+CREATE OR REPLACE TRIGGER tg_actualizar_n_participantes_delete
+AFTER DELETE ON pertence
+FOR EACH ROW 
+EXECUTE FUNCTION actualizar_n_participantes();
 
 
+INSERT INTO pertence (dni, cod, funcion) VALUES ('A007', 'G01', 'Bajista');
 
+DELETE FROM pertence WHERE dni = 'A002' AND cod = 'G01';
 
-CREATE CONSTRAINT TRIGGER tg_no_permitir_artistas_sin_grupos
-    AFTER INSERT
-    ON public.artista
-    DEFERRABLE INITIALLY DEFERRED
-    FOR EACH ROW
-    EXECUTE FUNCTION public.no_permitir_artistas_sin_grupos();
-
-
-
---TRANSACCIÓN 
-BEGIN;
--- Insert into Table A
-INSERT INTO artista VALUES ('233849384','PRUEBA');
--- Insert into intermedia
-INSERT INTO pertence (dni,cod,funcion) VALUES ('233849384',1 ,'PRUEBA');
-
-
-COMMIT;
-
-ROLLBACK;
-
-
-
-
-
-
-
+SELECT * FROM grupo;

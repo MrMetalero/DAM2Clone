@@ -1,0 +1,22 @@
+--LA NECESIDAD DE AL MENOS 1 ARTISTA RELACIONADO CON  GRUPO, DEBERÍA EVITAR QUE ESTO FUNCIONE
+
+CREATE OR REPLACE FUNCTION borrado_resto_artistas()
+RETURNS TRIGGER
+LANGUAGE 'plpgsql'
+COST 100
+VOLATILE NOT LEAKPROOF
+AS $body$
+BEGIN
+    DELETE FROM pertence WHERE cod = OLD.cod;
+
+    RETURN NEW;
+END;
+$body$;
+
+
+
+CREATE OR REPLACE TRIGGER tg_borrado_resto_artistas
+    AFTER DELETE
+    ON public.pertence
+    FOR EACH ROW
+    EXECUTE FUNCTION public.borrado_resto_artistas();

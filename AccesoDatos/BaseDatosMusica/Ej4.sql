@@ -1,1 +1,0 @@
---YA ETÁ PUESTO EL CAMPO cod_gru de CLUB en not null. EJERCICIO YA HECHO
